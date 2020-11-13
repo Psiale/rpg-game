@@ -1,0 +1,37 @@
+{
+  "name": "rpg-game",
+  "version": "1.0.0",
+  "description": "An RPG game made with Phaser 3 and Webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Psiale/rpg-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Psiale/rpg-game/issues"
+  },
+  "homepage": "https://github.com/Psiale/rpg-game#readme",
+  "dependencies": {
+    "phaser": "^3.24.1",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "^6.3.1",
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "sass": "^1.29.0",
+    "sass-loader": "^10.1.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
