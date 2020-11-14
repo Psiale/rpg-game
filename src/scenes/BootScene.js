@@ -12,7 +12,7 @@ export default class BootScene extends Phaser.Scene {
 
         // map in the json format
         this.load.tilemapTiledJSON('map', 'map/map.json');
-        this.load.spritesheet('player', 'character_assets.png', { frameWidth: 20, frameHeight: 24})
+        this.load.spritesheet('player', 'character_assets.png', { frameWidth: 33, frameHeight: 43})
     }
 
     create() {

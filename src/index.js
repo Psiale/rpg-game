@@ -9,8 +9,8 @@ import WorldScene from './scenes/WorldScene'
 
 const config = {
     type: Phaser.AUTO,
-    width: 700,
-    height: 500,
+    width: 320,
+    height: 240,
     zoom: 2,
     backgroundColor: '4d99ff',
     parent: 'divId',
