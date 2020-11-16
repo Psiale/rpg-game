@@ -9,9 +9,8 @@ import WorldScene from './scenes/WorldScene'
 
 const config = {
     type: Phaser.AUTO,
-    width: 320,
-    height: 240,
-    zoom: 2,
+    width: 640,
+    height: 570,
     backgroundColor: '4d99ff',
     parent: 'divId',
     dom: {
@@ -20,7 +19,7 @@ const config = {
     physics: {
       default: 'arcade',
       arcade: {
-        gravity: { x: 0, y: 0 },
+        gravity: {y: 0, x: 0 },
       },
     },
     pixelArt: true,
