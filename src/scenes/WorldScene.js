@@ -1,8 +1,7 @@
 // let player;
 let player_retro;
 export default class WorldScene extends Phaser.Scene {
-    
-    constructor() {
+  constructor() {
     super("World");
   }
 
@@ -14,8 +13,7 @@ export default class WorldScene extends Phaser.Scene {
   preload() {
     this.load.image("oTiles", "map/o_spritesheet.png");
   }
-  
-  
+
   create() {
     const map = this.make.tilemap({ key: "map" });
 
@@ -25,25 +23,28 @@ export default class WorldScene extends Phaser.Scene {
     // const obstacles = map.createStaticLayer("Obstacle", tiles, 0, 0);
     worldLayer.setCollisionByProperty({ collides: true });
     // player = this.physics.add.sprite(50, 100, "player", 6);
-    player_retro = this.physics.add.sprite(64, 455, 'player_retro', 6)
-    player_retro.setScale(.4)
+    player_retro = this.physics.add.sprite(64, 455, "player_retro", 6);
+    player_retro.setScale(0.4);
     this.physics.world.bounds.width = map.widthInPixels;
     this.physics.world.bounds.height = map.heightInPixels;
-    this.physics.add.collider(player_retro, worldLayer)
-    player_retro.setCollideWorldBounds(true)
+    this.physics.add.collider(player_retro, worldLayer);
+    player_retro.setCollideWorldBounds(true);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Makes Camera to follow character
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    
+
     this.cameras.main.startFollow(player_retro);
     this.cameras.main.roundPixels = true;
 
     //  animation with key 'left', we don't need left and right as we will use one and flip the sprite
     this.anims.create({
       key: "left",
-      frames: this.anims.generateFrameNumbers("player_retro", { start: 8, end: 11 }),
+      frames: this.anims.generateFrameNumbers("player_retro", {
+        start: 8,
+        end: 11,
+      }),
       frameRate: 10,
       repeat: -1,
     });
@@ -51,7 +52,10 @@ export default class WorldScene extends Phaser.Scene {
     // animation with key 'right'
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("player_retro", { start: 12, end: 15 }),
+      frames: this.anims.generateFrameNumbers("player_retro", {
+        start: 12,
+        end: 15,
+      }),
       frameRate: 10,
       repeat: -1,
     });
@@ -71,6 +75,24 @@ export default class WorldScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+
+    // enemy setup
+    this.spawns = this.physics.add.group({
+      classType: Phaser.GameObjects.Zone,
+    });
+    for (var i = 0; i < 10; i++) {
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      // parameters are x, y, width, height
+      this.spawns.create(x, y, 20, 20);
+    }
+    this.physics.add.overlap(
+      this.player,
+      this.spawns,
+      this.onMeetEnemy,
+      false,
+      this
+    );
   }
 
   update() {
@@ -99,5 +121,9 @@ export default class WorldScene extends Phaser.Scene {
     } else {
       player_retro.anims.stop();
     }
+  }
+
+  onMeetEnemy(player, zone) {
+      
   }
 }
