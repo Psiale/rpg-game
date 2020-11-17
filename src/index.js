@@ -10,8 +10,8 @@ import UIScene from './scenes/UIScene'
 
 const config = {
     type: Phaser.AUTO,
-    width: 640,
-    height: 570,
+    width: 645,
+    height: 720,
     backgroundColor: '4d99ff',
     parent: 'divId',
     dom: {
