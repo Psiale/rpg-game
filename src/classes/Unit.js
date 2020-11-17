@@ -1,20 +1,19 @@
 import 'phaser'
 
 
-export default class Unit {
-    constructor () {
-        super('Unit');
+export default class Unit extends Phaser.GameObjects.Sprite {
+    constructor (scene, x, y, texture, frame, type, hp, damage) {
+        Phaser.GameObjects.Sprite.call(this, scene, x, y, texture, frame)
+        this.type = type;
+        this.maxHp =this.hp = hp;
+        this.damage = damage;
+    }
+    attack(target) {
+        target.takeDamage(this.damage)
     }
 
-    create() {
-        this.graphics = this.add.graphics();
-        this.graphics.lineStyle(1, 0xffffff);
-        this.graphics.fillStyle(0x031f4c, 1);        
-        this.graphics.strokeRect(2, 150, 90, 100);
-        this.graphics.fillRect(2, 150, 90, 100);
-        this.graphics.strokeRect(95, 150, 90, 100);
-        this.graphics.fillRect(95, 150, 90, 100);
-        this.graphics.strokeRect(188, 150, 130, 100);
-        this.graphics.fillRect(188, 150, 130, 100);
-        }
-}
+    takeDamage(damage) {
+        this.hp -= damage;
+    }
+
+  }
