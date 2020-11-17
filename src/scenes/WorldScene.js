@@ -78,22 +78,22 @@ export default class WorldScene extends Phaser.Scene {
 
     // enemy setup
     this.spawns = this.physics.add.group({
-      classType: Phaser.GameObjects.Zone,
-    });
-    for (var i = 0; i < 10; i++) {
-      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
-      // parameters are x, y, width, height
-      this.spawns.create(x, y, 20, 20);
+        classType: Phaser.GameObjects.Zone,
+      });
+      for (var i = 0; i < 10; i++) {
+        var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+        var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+        // parameters are x, y, width, height
+        this.spawns.create(x, y, 20, 20);
+      }
+      this.physics.add.overlap(
+        player_retro,
+        this.spawns,
+        this.onMeetEnemy,
+        false,
+        this
+      );
     }
-    this.physics.add.overlap(
-      this.player,
-      this.spawns,
-      this.onMeetEnemy,
-      false,
-      this
-    );
-  }
 
   update() {
     player_retro.body.setVelocity(0);
@@ -124,6 +124,11 @@ export default class WorldScene extends Phaser.Scene {
   }
 
   onMeetEnemy(player, zone) {
-      
+     // we move the zone to some other location
+     zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+     zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);       
+    
+    // shake the world
+    this.cameras.main.shake(300)
   }
 }
