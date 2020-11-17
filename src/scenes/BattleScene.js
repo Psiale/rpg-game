@@ -10,9 +10,9 @@ export default class BattleScene extends Phaser.Scene {
     // player character - warrior
     const warrior = new PlayerCharacter(
       this,
+      322.5,
       400,
-      400,
-      "player_retro",
+      "player_retro_fight",
       1,
       "Warrior",
       100,
@@ -20,7 +20,7 @@ export default class BattleScene extends Phaser.Scene {
     );
     this.add.existing(warrior);
     
-    const boss1 = new Enemy(this, 400, 100, 'boss1', null, 'Ancient', 50, 3);
+    const boss1 = new Enemy(this, 322.5, 100, 'boss1', null, 'Ancient', 50, 3);
     this.add.existing(boss1)
     this.heroes = [warrior]
     this.enemies = [boss1]
