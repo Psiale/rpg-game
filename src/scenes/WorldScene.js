@@ -78,22 +78,22 @@ export default class WorldScene extends Phaser.Scene {
 
     // enemy setup
     this.spawns = this.physics.add.group({
-        classType: Phaser.GameObjects.Zone,
-      });
-      for (var i = 0; i < 10; i++) {
-        var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-        var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
-        // parameters are x, y, width, height
-        this.spawns.create(x, y, 20, 20);
-      }
-      this.physics.add.overlap(
-        player_retro,
-        this.spawns,
-        this.onMeetEnemy,
-        false,
-        this
-      );
+      classType: Phaser.GameObjects.Zone,
+    });
+    for (var i = 0; i < 6; i++) {
+      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      // parameters are x, y, width, height
+      this.spawns.create(x, y, 35, 35);
     }
+    this.physics.add.overlap(
+      player_retro,
+      this.spawns,
+      this.onMeetEnemy,
+      false,
+      this
+    );
+  }
 
   update() {
     player_retro.body.setVelocity(0);
