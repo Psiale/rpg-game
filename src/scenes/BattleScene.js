@@ -1,6 +1,6 @@
 import "phaser";
 
-export default class BattleScene extends Phaser.Scene {
+export class BattleScene extends Phaser.Scene {
   constructor() {
     super("Battle");
   }
@@ -72,3 +72,151 @@ const Unit = new Phaser.Class({
     },
   });
 
+  // Menus start here 
+
+  // The menu element (containers for enemy and hero options)
+const MenuItem = new Phaser.Class({
+    Extends: Phaser.GameObjects.Text,
+    
+    initialize:
+            
+    function MenuItem(x, y, text, scene) {
+        Phaser.GameObjects.Text.call(this, scene, x, y, text, { color: '#ffffff', align: 'left', fontSize: 15});
+    },
+    
+    select: function() {
+        this.setColor('#f8ff38');
+    },
+    
+    deselect: function() {
+        this.setColor('#ffffff');
+    }
+    
+});
+
+// The actual container of that menu
+const Menu = new Phaser.Class({
+  Extends: Phaser.GameObjects.Container,
+  
+  initialize:
+          
+  function Menu(x, y, scene, heroes) {
+      Phaser.GameObjects.Container.call(this, scene, x, y);
+      this.menuItems = [];
+      this.menuItemIndex = 0;
+      this.heroes = heroes;
+      this.x = x;
+      this.y = y;
+  },     
+  addMenuItem: function(unit) {
+      var menuItem = new MenuItem(0, this.menuItems.length * 20, unit, this.scene);
+      this.menuItems.push(menuItem);
+      this.add(menuItem);        
+  },            
+  moveSelectionUp: function() {
+      this.menuItems[this.menuItemIndex].deselect();
+      this.menuItemIndex--;
+      if(this.menuItemIndex < 0)
+          this.menuItemIndex = this.menuItems.length - 1;
+      this.menuItems[this.menuItemIndex].select();
+  },
+  moveSelectionDown: function() {
+      this.menuItems[this.menuItemIndex].deselect();
+      this.menuItemIndex++;
+      if(this.menuItemIndex >= this.menuItems.length)
+          this.menuItemIndex = 0;
+      this.menuItems[this.menuItemIndex].select();
+  },
+  // select the menu as a whole and an element with index from it
+  select: function(index) {
+      if(!index)
+          index = 0;
+      this.menuItems[this.menuItemIndex].deselect();
+      this.menuItemIndex = index;
+      this.menuItems[this.menuItemIndex].select();
+  },
+  // deselect this menu
+  deselect: function() {        
+      this.menuItems[this.menuItemIndex].deselect();
+      this.menuItemIndex = 0;
+  },
+  confirm: function() {
+      // wen the player confirms his slection, do the action
+  }   
+});
+
+
+// type of menus, heroes and enemies
+
+const HeroesMenu = new Phaser.Class({
+  Extends: Menu,
+  
+  initialize:
+          
+  function HeroesMenu(x, y, scene) {
+      Menu.call(this, x, y, scene);                    
+  }
+});
+
+const ActionsMenu = new Phaser.Class({
+  Extends: Menu,
+  
+  initialize:
+          
+  function ActionsMenu(x, y, scene) {
+      Menu.call(this, x, y, scene);   
+      this.addMenuItem('Attack');
+  },
+  confirm: function() {
+      // do something when the player selects an action
+  }
+  
+});
+
+const EnemiesMenu = new Phaser.Class({
+  Extends: Menu,
+  
+  initialize:
+          
+  function EnemiesMenu(x, y, scene) {
+      Menu.call(this, x, y, scene);        
+  },       
+  confirm: function() {        
+      // do something when the player selects an enemy
+  }
+});
+
+// UIScene class
+export class UIScene extends Phaser.Scene {
+  constructor () {
+      super('UI');
+  }
+
+  create() {
+      this.graphics = this.add.graphics();
+      this.graphics.lineStyle(1, 0xffffff);
+      this.graphics.fillStyle(0x031f4c, 1);
+      this.graphics.strokeRect(20, 600, 215, 100);
+      this.graphics.fillRect(20, 600, 215, 100);
+      this.graphics.strokeRect(216, 600, 215, 100);
+      this.graphics.fillRect(216, 600, 215, 100);
+      this.graphics.strokeRect(431, 600, 195, 100);
+      this.graphics.fillRect(431, 600, 195, 100);
+
+      // menu adding 
+       // basic container to hold all menus
+       this.menus = this.add.container();
+              
+       this.heroesMenu = new HeroesMenu(435, 590, this);           
+       this.actionsMenu = new ActionsMenu(100, 153, this);            
+       this.enemiesMenu = new EnemiesMenu(8, 153, this);   
+       
+       // the currently selected menu 
+       this.currentMenu = this.actionsMenu;
+       
+       // add menus to the container
+       this.menus.add(this.heroesMenu);
+       this.menus.add(this.actionsMenu);
+       this.menus.add(this.enemiesMenu);
+      }
+}

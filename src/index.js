@@ -5,8 +5,7 @@ import OptionsScene from './scenes/OptionsScene'
 import CreditsScene from './scenes/CreditsScene'
 import BootScene from './scenes/BootScene'
 import WorldScene from './scenes/WorldScene'
-import BattleScene from './scenes/BattleScene'
-import UIScene from './scenes/UIScene'
+import {BattleScene, UIScene } from './scenes/BattleScene'
 
 const config = {
     type: Phaser.AUTO,
