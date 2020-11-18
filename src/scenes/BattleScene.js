@@ -11,7 +11,7 @@ export class BattleScene extends Phaser.Scene {
     const warrior = new PlayerCharacter(
       this,
       322.5,
-      400,
+      450,
       "player_retro_fight",
       1,
       "Warrior",
@@ -20,11 +20,12 @@ export class BattleScene extends Phaser.Scene {
     );
     this.add.existing(warrior);
     
-    const boss1 = new Enemy(this, 322.5, 100, 'boss1', null, 'Ancient', 50, 3);
+    const boss1 = new Enemy(this, 322.5, 150, 'boss1', null, 'Ancient', 50, 3);
     this.add.existing(boss1)
     this.heroes = [warrior]
     this.enemies = [boss1]
     this.units = this.heroes.concat(this.enemies)
+    console.log(this.units)
     this.scene.launch("UI");
   }
 }
@@ -33,8 +34,8 @@ export class BattleScene extends Phaser.Scene {
 const Unit = new Phaser.Class({
     Extends: Phaser.GameObjects.Sprite,
   
-    initialize: function Unit(scene, x, y, texture, type, hp, damage) {
-      Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
+    initialize: function Unit(scene, x, y, texture,frame, type, hp, damage) {
+      Phaser.GameObjects.Sprite.call(this, scene, x, y, texture, frame);
       this.type = type;
       this.hp = hp;
       this.maxHp = this.hp;
@@ -57,17 +58,17 @@ const Unit = new Phaser.Class({
   const Enemy = new Phaser.Class({
     Extends: Unit,
   
-    initialize: function Enemy(scene, x, y, texture, type, hp, damage) {
-      Unit.call(this, scene, x, y, texture, type, hp, damage);
-      this.setScale(1)
+    initialize: function Enemy(scene, x, y, texture, frame, type, hp, damage) {
+      Unit.call(this, scene, x, y, texture, frame, type, hp, damage);
+      this.setScale(2)
     },
   });
   
   const PlayerCharacter = new Phaser.Class({
     Extends: Unit,
   
-    initialize: function PlayerCharacter(scene, x, y, texture, type, hp, damage) {
-      Unit.call(this, scene, x, y, texture, type, hp, damage);
+    initialize: function PlayerCharacter(scene, x, y, texture, frame,  type, hp, damage) {
+      Unit.call(this, scene, x, y, texture, frame, type, hp, damage);
       this.setScale(1);
     },
   });
@@ -107,9 +108,24 @@ const Menu = new Phaser.Class({
       this.heroes = heroes;
       this.x = x;
       this.y = y;
-  },     
+  },
+  clear: function() {
+    for(let i = 0; i < this.menuItems.length; i++) {
+        this.menuItems[i].destroy();
+    }
+    this.menuItems.length = 0;
+    this.menuItemIndex = 0;
+},
+remap: function(units) {
+    this.clear();        
+    for(let i = 0; i < units.length; i++) {
+        let unit = units[i];
+        this.addMenuItem(unit.type);
+    }
+    console.log(this.menuItems)
+},
   addMenuItem: function(unit) {
-      var menuItem = new MenuItem(0, this.menuItems.length * 20, unit, this.scene);
+      const menuItem = new MenuItem(0, this.menuItems.length * 20, unit, this.scene);
       this.menuItems.push(menuItem);
       this.add(menuItem);        
   },            
@@ -179,7 +195,7 @@ const EnemiesMenu = new Phaser.Class({
   initialize:
           
   function EnemiesMenu(x, y, scene) {
-      Menu.call(this, x, y, scene);        
+      Menu.call(this, x, y, scene);      
   },       
   confirm: function() {        
       // do something when the player selects an enemy
@@ -193,6 +209,8 @@ export class UIScene extends Phaser.Scene {
   }
 
   create() {
+      this.battleScene = this.scene.get('Battle')
+      console.log(this.battleScene)
       this.graphics = this.add.graphics();
       this.graphics.lineStyle(1, 0xffffff);
       this.graphics.fillStyle(0x031f4c, 1);
@@ -207,9 +225,9 @@ export class UIScene extends Phaser.Scene {
        // basic container to hold all menus
        this.menus = this.add.container();
               
-       this.heroesMenu = new HeroesMenu(435, 590, this);           
-       this.actionsMenu = new ActionsMenu(100, 153, this);            
-       this.enemiesMenu = new EnemiesMenu(8, 153, this);   
+       this.heroesMenu = new HeroesMenu(537.5, 600, this);           
+       this.actionsMenu = new ActionsMenu(322.5, 600, this);            
+       this.enemiesMenu = new EnemiesMenu(107.5, 600, this);   
        
        // the currently selected menu 
        this.currentMenu = this.actionsMenu;
@@ -218,5 +236,17 @@ export class UIScene extends Phaser.Scene {
        this.menus.add(this.heroesMenu);
        this.menus.add(this.actionsMenu);
        this.menus.add(this.enemiesMenu);
+       this.remapHeroes();
+       this.remapEnemies();
       }
+      remapHeroes() {
+        const heroes = this.battleScene.heroes;
+        this.heroesMenu.remap(heroes);
+        
+    }
+    remapEnemies() {
+        const enemies = this.battleScene.enemies;
+        this.enemiesMenu.remap(enemies);
+    }
+
 }

@@ -3,16 +3,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack')
 
 module.exports = {
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          name: 'production-dependencies',
-      filename: 'production-dependencies.bundle.js'
-        }
-      }
-    }
-  } ,
     entry: {
         app: 
             './src/index.js',
@@ -75,5 +65,11 @@ module.exports = {
               'typeof CANVAS_RENDERER': JSON.stringify(true),
               'typeof WEBGL_RENDERER': JSON.stringify(true)
             }),  
-          ]
+          ],
+          optimization: {
+            splitChunks: {
+              name: 'production-dependencies',
+              filename: 'production-dependencies.bundle.js',
+            }
+          }
         }
