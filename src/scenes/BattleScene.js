@@ -67,8 +67,7 @@ const Unit = new Phaser.Class({
   
     initialize: function PlayerCharacter(scene, x, y, texture, type, hp, damage) {
       Unit.call(this, scene, x, y, texture, type, hp, damage);
-      this.flipX = true;
-      this.setScale(2);
+      this.setScale(1);
     },
   });
 
