@@ -97,6 +97,8 @@ export default class WorldScene extends Phaser.Scene {
       false,
       this
     );
+
+    this.sys.events.on('wake', this.wake, this)
   }
 
   update() {
@@ -136,4 +138,12 @@ export default class WorldScene extends Phaser.Scene {
     this.cameras.main.shake(300)
     this.scene.switch('Battle')
   }
+
+  wake() {
+    console.log('Im reseting all the cursors')
+    this.cursors.left.reset();
+    this.cursors.right.reset();
+    this.cursors.up.reset();
+    this.cursors.down.reset();
+}
 }

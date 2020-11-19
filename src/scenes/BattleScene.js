@@ -227,7 +227,6 @@ const Menu = new Phaser.Class({
     Phaser.GameObjects.Container.call(this, scene, x, y);
     this.menuItems = [];
     this.menuItemIndex = 0;
-    this.heroes = heroes;
     this.x = x;
     this.y = y;
   },
@@ -244,6 +243,7 @@ const Menu = new Phaser.Class({
       let unit = units[i];
       unit.setMenuItem(this.addMenuItem(""));
     }
+    this.menuItemIndex = 0;
   },
   addMenuItem: function (unit) {
     const menuItem = new MenuItem(
@@ -254,6 +254,7 @@ const Menu = new Phaser.Class({
     );
     this.menuItems.push(menuItem);
     this.add(menuItem);
+    return menuItem;
   },
   // moveSelectionUp: function () {
   //   this.menuItems[this.menuItemIndex].deselect();
@@ -268,23 +269,27 @@ const Menu = new Phaser.Class({
   //   this.menuItems[this.menuItemIndex].select();
   // },
   // select the menu as a whole and an element with index from it
-  select: function (index) {
-    if (!index) index = 0;
+  select: function(index) {
+    if(!index)
+        index = 0;       
     this.menuItems[this.menuItemIndex].deselect();
     this.menuItemIndex = index;
-    while (!this.menuItems[this.menuItemIndex].active) {
-      this.menuItemIndex++;
-      if (this.menuItemIndex >= this.menuItems.length) this.menuItemIndex = 0;
-      if (this.menuItemIndex == index) return;
-    }
+    while(!this.menuItems[this.menuItemIndex].active) {
+        this.menuItemIndex++;
+        if(this.menuItemIndex >= this.menuItems.length)
+            this.menuItemIndex = 0;
+        if(this.menuItemIndex == index)
+            return;
+    }        
     this.menuItems[this.menuItemIndex].select();
     this.selected = true;
-  },
-  // deselect this menu
-  deselect: function () {
+},
+// deselect this menu
+deselect: function() {        
     this.menuItems[this.menuItemIndex].deselect();
     this.menuItemIndex = 0;
-  },
+    this.selected = false;
+},
   confirm: function () {
     // wen the player confirms his slection, do the action
     alert("testing");
@@ -404,6 +409,11 @@ export class UIScene extends Phaser.Scene {
     this.battleScene.events.on("PlayerSelect", this.onPlayerSelect, this);
     this.events.on("SelectedAction", this.onSelectedAction, this);
     this.events.on("Enemy", this.onEnemy, this);
+    // when the scene receives wake event
+    this.sys.events.on("wake", this.createMenu, this);
+    
+    this.createMenu();
+
     this.battleScene.nextTurn();
   }
   remapHeroes() {
@@ -439,5 +449,11 @@ export class UIScene extends Phaser.Scene {
     this.enemiesMenu.deselect();
     this.currentMenu = null;
     this.battleScene.receivePlayerSelection("attack", index);
+  }
+
+  createMenu() {
+    this.remapHeroes();
+    this.remapEnemies();
+    this.battleScene.nextTurn();
   }
 }
