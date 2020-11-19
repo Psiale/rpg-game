@@ -8,7 +8,7 @@ export class BattleScene extends Phaser.Scene {
   create() {
     this.cameras.main.setBackgroundColor("rgba(0, 200, 0, 0.5)");
     this.startBattle();
-    this.sys.events.on("wake", this.wake, this);
+    this.sys.events.on("wake", this.startBattle, this);
   }
   nextTurn() {
     if (this.checkEndBattle()) {
@@ -54,6 +54,7 @@ export class BattleScene extends Phaser.Scene {
       const heroe = this.heroes[i];
       if (heroe.living) gameOver = false;
     }
+    return victory || gameOver;
   }
 
   endBattle() {
@@ -66,9 +67,10 @@ export class BattleScene extends Phaser.Scene {
     }
     this.units.length = 0;
     // sleep the UI
-    this.scene.sleep("UIScene");
+    this.scene.sleep("UI");
     // return to WorldScene and sleep current BattleScene
-    this.scene.switch("WorldScene");
+    this.scene.switch("World");
+    console.log('AM I running this FAR?')
   }
 
   receivePlayerSelection(action, target) {
@@ -119,7 +121,7 @@ export class BattleScene extends Phaser.Scene {
     this.units = this.heroes.concat(this.enemies);
     // console.log(this.units);
     this.index = -1;
-    this.wake();
+    this.scene.run("UI");
   }
 }
 
