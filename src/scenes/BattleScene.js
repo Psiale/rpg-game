@@ -134,7 +134,7 @@ const MenuItem = new Phaser.Class({
     Phaser.GameObjects.Text.call(this, scene, x, y, text, {
       color: "#ffffff",
       align: "left",
-      fontSize: 15,
+      fontSize: 35,
     });
   },
 
@@ -170,7 +170,7 @@ const Menu = new Phaser.Class({
     this.clear();
     for (let i = 0; i < units.length; i++) {
       let unit = units[i];
-      this.addMenuItem(unit.type);
+      this.addMenuItem('');
     }
     console.log(this.menuItems);
   },
@@ -259,8 +259,8 @@ var Message = new Phaser.Class({
     this.add(graphics);
     graphics.lineStyle(1, 0xffffff, 0.8);
     graphics.fillStyle(0x031f4c, 0.3);
-    graphics.strokeRect(200, 200, 180, 30);
-    graphics.fillRect(200, 200, 180, 30);
+    graphics.strokeRect(100, 100, 180, 30);
+    graphics.fillRect(100, 100, 180, 30);
     this.text = new Phaser.GameObjects.Text(scene, 200, 200, "Fuck me", {
       color: "#ffffff",
       align: "center",
@@ -301,12 +301,12 @@ export class UIScene extends Phaser.Scene {
     this.graphics = this.add.graphics();
     this.graphics.lineStyle(1, 0xffffff);
     this.graphics.fillStyle(0x031f4c, 1);
-    this.graphics.strokeRect(20, 600, 215, 100);
-    this.graphics.fillRect(20, 600, 215, 100);
-    this.graphics.strokeRect(216, 600, 215, 100);
-    this.graphics.fillRect(216, 600, 215, 100);
-    this.graphics.strokeRect(431, 600, 195, 100);
-    this.graphics.fillRect(431, 600, 195, 100);
+    // this.graphics.strokeRect(20, 600, 215, 100);
+    // this.graphics.fillRect(20, 600, 215, 100);
+    this.graphics.strokeRect(116, 600, 400, 100);
+    this.graphics.fillRect(116, 600, 400, 100);
+    // this.graphics.strokeRect(431, 600, 195, 100);
+    // this.graphics.fillRect(431, 600, 195, 100);
 
     // menu adding
     // basic container to hold all menus
@@ -314,9 +314,9 @@ export class UIScene extends Phaser.Scene {
     this.message = new Message(this, this.battleScene.events);
     console.log(`este es el mensaje ${this.message}`);
     this.add.existing(this.message);
-    this.heroesMenu = new HeroesMenu(537.5, 600, this);
-    this.actionsMenu = new ActionsMenu(322.5, 600, this);
-    this.enemiesMenu = new EnemiesMenu(107.5, 600, this);
+    this.heroesMenu = new HeroesMenu(0, 0, this);
+    this.actionsMenu = new ActionsMenu(280.5, 600, this);
+    this.enemiesMenu = new EnemiesMenu(0, 0, this);
 
     // the currently selected menu
     this.currentMenu = this.actionsMenu;
@@ -343,7 +343,7 @@ export class UIScene extends Phaser.Scene {
   }
 
   onKeyInput(event) {
-
+      this.currentMenu.confirm();
       if (event.code === "Space" || event.code === "ArrowLeft") {
         this.currentMenu.confirm();
       }
