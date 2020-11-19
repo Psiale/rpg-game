@@ -80,12 +80,16 @@ export default class WorldScene extends Phaser.Scene {
     this.spawns = this.physics.add.group({
       classType: Phaser.GameObjects.Zone,
     });
-    for (var i = 0; i < 6; i++) {
-      var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-      var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
-      // parameters are x, y, width, height
-      this.spawns.create(x, y, 35, 35);
-    }
+    // for (var i = 0; i < 6; i++) {
+    //   var x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+    //   var y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+    //   // parameters are x, y, width, height
+    //   this.spawns.create(x, y, 35, 35);
+    // }
+    this.spawns.create(120, 590, 35, 35);
+    this.spawns.create(600, 500, 35, 35)
+    this.spawns.create(120,120, 35, 35)
+    this.spawns.create(580,150, 35, 35)
     this.physics.add.overlap(
       player_retro,
       this.spawns,
@@ -130,5 +134,6 @@ export default class WorldScene extends Phaser.Scene {
     
     // shake the world
     this.cameras.main.shake(300)
+    this.scene.switch('Battle')
   }
 }

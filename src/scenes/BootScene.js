@@ -17,6 +17,6 @@ export default class BootScene extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('Battle')
+        this.scene.start('World')
     }
 }

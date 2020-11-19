@@ -25,9 +25,11 @@ export class BattleScene extends Phaser.Scene {
     this.heroes = [warrior];
     this.enemies = [boss1];
     this.units = this.heroes.concat(this.enemies);
-    console.log(this.units);
+    // console.log(this.units);
     this.index = -1;
-    this.scene.launch("UI");
+    this.wake();
+    
+    this.sys.events.on("wake", this.wake, this);
   }
   nextTurn() {
     this.index++;
@@ -38,7 +40,7 @@ export class BattleScene extends Phaser.Scene {
     if (this.units[this.index]) {
       // if its player hero
       if (this.units[this.index] instanceof PlayerCharacter) {
-        console.log("un jugador esta jugando");
+        // console.log("un jugador esta jugando");
         this.events.emit("PlayerSelect", this.index);
       } else {
         // else if its enemy unit
@@ -56,13 +58,28 @@ export class BattleScene extends Phaser.Scene {
   }
 
   receivePlayerSelection(action, target) {
-    console.log(`esta es la accion ${action} y este es el target ${target}`);
+    // console.log(`esta es la accion ${action} y este es el target ${target}`);
     if (action == "attack") {
       this.units[this.index].attack(this.enemies[target]);
     }
     this.time.addEvent({
       delay: 3000,
       callback: this.nextTurn,
+      callbackScope: this,
+    });
+  }
+
+  exitBattle() {
+    console.log('the battle is exiting')
+    this.scene.sleep("UI");
+    this.scene.switch("World");
+  }
+
+  wake() {
+    this.scene.run("UI");
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.exitBattle,
       callbackScope: this,
     });
   }
@@ -89,7 +106,6 @@ const Unit = new Phaser.Class({
       "Message",
       `${this.type} attacks ${target.type} for ${this.damage} damage`
     );
-    console.log("Estoy enviando el mensaje de ataque");
   },
 
   takeDamage(damage) {
@@ -170,9 +186,9 @@ const Menu = new Phaser.Class({
     this.clear();
     for (let i = 0; i < units.length; i++) {
       let unit = units[i];
-      this.addMenuItem('');
+      this.addMenuItem("");
     }
-    console.log(this.menuItems);
+
   },
   addMenuItem: function (unit) {
     const menuItem = new MenuItem(
@@ -233,7 +249,6 @@ const ActionsMenu = new Phaser.Class({
   },
   confirm: function () {
     this.scene.events.emit("SelectEnemies");
-    console.log("cuando presionan space esto sucede");
   },
 });
 
@@ -274,7 +289,6 @@ var Message = new Phaser.Class({
   },
   showMessage: function (text) {
     this.text.setText(text);
-    console.log(`este es el texto en showMessage: ${text}`);
     this.visible = true;
     if (this.hideEvent) this.hideEvent.remove(false);
     this.hideEvent = this.scene.time.addEvent({
@@ -297,7 +311,6 @@ export class UIScene extends Phaser.Scene {
 
   create() {
     this.battleScene = this.scene.get("Battle");
-    console.log(this.battleScene);
     this.graphics = this.add.graphics();
     this.graphics.lineStyle(1, 0xffffff);
     this.graphics.fillStyle(0x031f4c, 1);
@@ -312,7 +325,6 @@ export class UIScene extends Phaser.Scene {
     // basic container to hold all menus
     this.menus = this.add.container();
     this.message = new Message(this, this.battleScene.events);
-    console.log(`este es el mensaje ${this.message}`);
     this.add.existing(this.message);
     this.heroesMenu = new HeroesMenu(0, 0, this);
     this.actionsMenu = new ActionsMenu(280.5, 600, this);
@@ -343,15 +355,13 @@ export class UIScene extends Phaser.Scene {
   }
 
   onKeyInput(event) {
+    this.currentMenu.confirm();
+    if (event.code === "Space" || event.code === "ArrowLeft") {
       this.currentMenu.confirm();
-      if (event.code === "Space" || event.code === "ArrowLeft") {
-        this.currentMenu.confirm();
-      }
-    console.log("im workin");
+    }
   }
 
   onPlayerSelect(id) {
-    console.log(`player ${id}`);
     this.heroesMenu.select(id);
     this.actionsMenu.select(0);
     this.currentMenu = this.actionsMenu;
@@ -360,11 +370,6 @@ export class UIScene extends Phaser.Scene {
   onSelectEnemies() {
     this.currentMenu = this.enemiesMenu;
     this.enemiesMenu.select(0);
-    console.log(
-      `cuando presionan espace esta funcion se dispara: ${this.enemiesMenu.select(
-        0
-      )}`
-    );
   }
 
   onEnemy(index) {
