@@ -1,4 +1,5 @@
 import "phaser";
+import * as localStorage from '../helpers/localStorage'
 
 export class BattleScene extends Phaser.Scene {
   constructor() {
@@ -91,32 +92,34 @@ export class BattleScene extends Phaser.Scene {
     this.scene.switch("World");
   }
 
-  wake() {
-    this.scene.run("UI");
-    this.time.addEvent({
-      delay: 1000,
-      callback: this.exitBattle,
-      callbackScope: this,
-    });
-  }
+  // wake() {
+  //   this.scene.run("UI");
+  //   this.time.addEvent({
+  //     delay: 1000,
+  //     callback: this.exitBattle,
+  //     callbackScope: this,
+  //   });
+  // }
 
   startBattle() {
-    // player character - warrior
-    const warrior = new PlayerCharacter(
+    let heroHP;
+ (localStorage.retrieveItem('heroHP')) ? heroHP = localStorage.retrieveItem('heroHP') : heroHP = 100;
+    // player character - hero
+    const hero = new PlayerCharacter(
       this,
       322.5,
       450,
       "player_retro_fight",
       1,
-      "Warrior",
-      100,
+      "hero",
+      heroHP,
       20
     );
-    this.add.existing(warrior);
+    this.add.existing(hero);
 
     const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Ancient", 50, 3);
     this.add.existing(boss1);
-    this.heroes = [warrior];
+    this.heroes = [hero];
     this.enemies = [boss1];
     this.units = this.heroes.concat(this.enemies);
     // console.log(this.units);
@@ -145,12 +148,17 @@ const Unit = new Phaser.Class({
 
   // attack the target unit
   attack(target) {
+    // checking on every attack if the type is the hero then updating the hp from localStorage
+    if (target.type === 'hero') target.hp = localStorage.retrieveItem('heroHp')
     if (target.living) {
       target.takeDamage(this.damage);
       this.scene.events.emit(
         "Message",
-        `${this.type} attacks ${target.type} for ${this.damage} damage`
+        `${this.type} attacks ${target.type} for ${this.damage} damage
+        ${target.type} remaining life: ${target.hp}`
       );
+      // Saving the heros life so when the next battle is up the hero has and updated life
+      if (target.type === 'hero') localStorage.saveItem('heroHp', target.hp)
     }
   },
 
