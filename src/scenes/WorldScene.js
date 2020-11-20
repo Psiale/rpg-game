@@ -131,8 +131,10 @@ export default class WorldScene extends Phaser.Scene {
 
   onMeetEnemy(player, zone) {
      // we move the zone to some other location
-     zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-     zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);       
+    //  zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+    console.log(zone)
+    this.spawns.remove(zone, true)
+    //  zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);       
     
     // shake the world
     this.cameras.main.shake(300)
