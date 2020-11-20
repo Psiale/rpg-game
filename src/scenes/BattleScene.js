@@ -44,9 +44,12 @@ export class BattleScene extends Phaser.Scene {
 
   checkEndBattle() {
     let victory = true;
+    const heroe = this.heroes[0]
+    const enemy  = this.enemies[0]
     // if all enemies are dead we have VICTORY
     for (let i = 0; i < this.enemies.length; i++) {
       const enemy = this.enemies[i];
+      
       if (enemy.living) victory = false;
     }
     let gameOver = true;
@@ -55,6 +58,13 @@ export class BattleScene extends Phaser.Scene {
       const heroe = this.heroes[i];
       if (heroe.living) gameOver = false;
     }
+      // Im trying to increase life of character if he finds Sain Axolotl, but it hasn't worked 
+      // if(victory && enemy.type === 'Saint Axolotl') {
+        
+      //   console.log(heroe.hp)
+      //   localStorage.saveItem('heroHp', heroe.hp += enemy.hp)
+      //   console.log(heroe.hp)
+      // }
     return victory || gameOver;
   }
 
@@ -118,7 +128,7 @@ export class BattleScene extends Phaser.Scene {
     this.add.existing(hero);
     
      const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Cutulhu", 50, 35);
-     const boss2 = new Enemy(this, 322.5, 150, "boss2", null, "Axolotl", 25, 10);
+     const boss2 = new Enemy(this, 322.5, 150, "boss2", null, "Saint Axolotl", 25, 10);
      const boss3 = new Enemy(this, 322.5, 150, "boss3", null, "Bunny of Death", 30, 15);
      const boss4 = new Enemy(this, 322.5, 150, "boss4", null, "Crazy Lizard", 80, 5);
      const boss5 = new Enemy(this, 322.5, 150, "boss5", null, "Wiked Demon", 25, 8);
@@ -126,7 +136,7 @@ export class BattleScene extends Phaser.Scene {
 
      
      const bossList = [
-      boss1, boss2, boss3, boss4, boss5, boss6
+      boss2, boss4,
      ]
 
      const randomBoss = bossList[Phaser.Math.Between(0, bossList.length - 1)]
