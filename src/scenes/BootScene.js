@@ -1,3 +1,4 @@
+import * as localStorage from '../helpers/localStorage'
 import 'phaser'
 
 
@@ -17,6 +18,7 @@ export default class BootScene extends Phaser.Scene {
     }
 
     create() {
+        localStorage.saveItem('heroHp', 100)
         this.scene.start('World')
     }
 }

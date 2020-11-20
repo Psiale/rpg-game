@@ -149,7 +149,7 @@ const Unit = new Phaser.Class({
   // attack the target unit
   attack(target) {
     // checking on every attack if the type is the hero then updating the hp from localStorage
-    if (target.type === 'hero') target.hp = localStorage.retrieveItem('heroHp')
+    if (target.type === 'hero' && localStorage.retrieveItem('heroHp')) target.hp = localStorage.retrieveItem('heroHp')
     if (target.living) {
       target.takeDamage(this.damage);
       this.scene.events.emit(
@@ -179,7 +179,7 @@ const Enemy = new Phaser.Class({
 
   initialize: function Enemy(scene, x, y, texture, frame, type, hp, damage) {
     Unit.call(this, scene, x, y, texture, frame, type, hp, damage);
-    this.setScale(2);
+    this.setScale(1.5);
   },
 });
 

@@ -133,7 +133,7 @@ export default class WorldScene extends Phaser.Scene {
      // we move the zone to some other location
     //  zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
     console.log(zone)
-    this.spawns.remove(zone, true)
+    this.spawns.remove(this.spawns.getFirstAlive(), true, true)
     //  zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);       
     
     // shake the world
