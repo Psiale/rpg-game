@@ -108,10 +108,11 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 127,
       frameHeight: 125,
     });
-    this.load.image("fight", "fight-button.png");
-    this.load.image("options", "options-button.png");
-    this.load.image("score", "scores-button.png");
+    this.load.image("fight-button", "fight-button.png");
+    this.load.image("options-button", "options-button.png");
+    this.load.image("score-button", "scores-button.png");
     this.load.image("gameLogo", "game-logo.png");
+    this.load.image('credits-button', 'credits-button.png')
     // map in the json format
     this.load.tilemapTiledJSON("map", "map/mymap.json");
     this.load.spritesheet("player_retro", "character_retro.png", {
