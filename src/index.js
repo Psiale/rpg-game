@@ -11,7 +11,7 @@ const config = {
     type: Phaser.AUTO,
     width: 645,
     height: 720,
-    backgroundColor: '4d99ff',
+    backgroundColor: '000000',
     parent: 'divId',
     dom: {
       createContainer: true,
@@ -30,6 +30,8 @@ const config = {
   const game = new Phaser.Game(config); // eslint-disable-line no-unused-vars  
   
   game.scene.add('Boot',BootScene)
+  game.scene.add('Preloader', PreloaderScene)
+  game.scene.add('Title', TitleScene)
   game.scene.add('World', WorldScene)
   game.scene.add('Battle', BattleScene )
   game.scene.add('UI', UIScene )

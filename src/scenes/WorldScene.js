@@ -10,9 +10,6 @@ export default class WorldScene extends Phaser.Scene {
   //     console.log('init', data);
   //     this.oTiles = data.oTiles;
   // }
-  preload() {
-    this.load.image("oTiles", "map/o_spritesheet.png");
-  }
 
   create() {
     const map = this.make.tilemap({ key: "map" });
@@ -88,8 +85,11 @@ export default class WorldScene extends Phaser.Scene {
     // }
     this.spawns.create(120, 590, 35, 35);
     this.spawns.create(600, 500, 35, 35)
-    this.spawns.create(120,120, 35, 35)
-    this.spawns.create(580,150, 35, 35)
+    this.spawns.create(120, 120, 35, 35)
+    this.spawns.create(580, 150, 35, 35)
+    this.spawns.create(380, 100, 35, 35)
+    this.spawns.create(100, 390, 35, 35)
+    
     this.physics.add.overlap(
       player_retro,
       this.spawns,
@@ -132,7 +132,6 @@ export default class WorldScene extends Phaser.Scene {
   onMeetEnemy(player, zone) {
      // we move the zone to some other location
     //  zone.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
-    console.log(zone)
     this.spawns.remove(this.spawns.getFirstAlive(), true, true)
     //  zone.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);       
     
@@ -142,7 +141,6 @@ export default class WorldScene extends Phaser.Scene {
   }
 
   wake() {
-    console.log('Im reseting all the cursors')
     this.cursors.left.reset();
     this.cursors.right.reset();
     this.cursors.up.reset();

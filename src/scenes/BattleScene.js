@@ -1,4 +1,5 @@
 import "phaser";
+import * as Utilities from '../helpers/utilities'
 import * as localStorage from '../helpers/localStorage'
 
 export class BattleScene extends Phaser.Scene {
@@ -26,7 +27,6 @@ export class BattleScene extends Phaser.Scene {
 
     // if its player hero
     if (this.units[this.index] instanceof PlayerCharacter) {
-      // console.log("un jugador esta jugando");
       this.events.emit("PlayerSelect", this.index);
     } else {
       // else if its enemy unit
@@ -81,11 +81,9 @@ export class BattleScene extends Phaser.Scene {
     this.scene.sleep("UI");
     // return to WorldScene and sleep current BattleScene
     this.scene.switch("World");
-    console.log('AM I running this FAR?')
   }
 
   receivePlayerSelection(action, target) {
-    // console.log(`esta es la accion ${action} y este es el target ${target}`);
     if (action == "attack") {
       this.units[this.index].attack(this.enemies[target]);
     }
@@ -97,7 +95,6 @@ export class BattleScene extends Phaser.Scene {
   }
 
   exitBattle() {
-    console.log("the battle is exiting");
     this.scene.sleep("UI");
     this.scene.switch("World");
   }
@@ -136,16 +133,16 @@ export class BattleScene extends Phaser.Scene {
 
      
      const bossList = [
-      boss2, boss4,
+     boss1, boss2, boss3, boss4, boss5, boss6
      ]
 
-     const randomBoss = bossList[Phaser.Math.Between(0, bossList.length - 1)]
+     const randomBoss = Utilities.randomElement(bossList, 0, bossList.length -1)
+    //  bossList[Phaser.Math.Between(0, bossList.length - 1)]
     
     this.add.existing(randomBoss);
     this.heroes = [hero];
     this.enemies = [randomBoss];
     this.units = this.heroes.concat(this.enemies);
-    // console.log(this.units);
     this.index = -1;
     this.scene.run("UI");
   }
