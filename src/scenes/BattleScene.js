@@ -116,11 +116,24 @@ export class BattleScene extends Phaser.Scene {
       20
     );
     this.add.existing(hero);
+    
+     const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Cutulhu", 50, 35);
+     const boss2 = new Enemy(this, 322.5, 150, "boss2", null, "Axolotl", 25, 10);
+     const boss3 = new Enemy(this, 322.5, 150, "boss3", null, "Bunny of Death", 30, 15);
+     const boss4 = new Enemy(this, 322.5, 150, "boss4", null, "Crazy Lizard", 80, 5);
+     const boss5 = new Enemy(this, 322.5, 150, "boss5", null, "Wiked Demon", 25, 8);
+     const boss6 = new Enemy(this, 322.5, 150, "boss6", null, "Toad", 20, 3);
 
-    const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Ancient", 50, 3);
-    this.add.existing(boss1);
+     
+     const bossList = [
+      boss1, boss2, boss3, boss4, boss5, boss6
+     ]
+
+     const randomBoss = bossList[Phaser.Math.Between(0, bossList.length - 1)]
+    
+    this.add.existing(randomBoss);
     this.heroes = [hero];
-    this.enemies = [boss1];
+    this.enemies = [randomBoss];
     this.units = this.heroes.concat(this.enemies);
     // console.log(this.units);
     this.index = -1;
