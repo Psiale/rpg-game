@@ -28,6 +28,29 @@ this.fightButton.on('pointerdown', function (pointer) {
 this.creditsButton.on('pointerdown', function (pointer) {
     this.scene.start('Credit');
   }.bind(this));
+
+  this.creditsTween = this.tweens.add({
+  targets: this.creditsText,
+  y: -100,
+  ease: 'Power1',
+  duration: 3000,
+  delay: 1000,
+  onComplete: function () {
+    this.destroy;
+  }
+});
+ 
+this.madeByTween = this.tweens.add({
+  targets: this.madeByText,
+  y: -300,
+  ease: 'Power1',
+  duration: 8000,
+  delay: 1000,
+  onComplete: function () {
+    this.madeByTween.destroy;
+    this.scene.start('Title');
+  }.bind(this)
+});
   
 
  

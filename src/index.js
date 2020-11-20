@@ -32,6 +32,7 @@ const config = {
   game.scene.add('Boot',BootScene)
   game.scene.add('Preloader', PreloaderScene)
   game.scene.add('Title', TitleScene)
+  game.scene.add('Credit', CreditsScene )
   game.scene.add('World', WorldScene)
   game.scene.add('Battle', BattleScene )
   game.scene.add('UI', UIScene )
