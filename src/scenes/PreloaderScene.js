@@ -10,25 +10,14 @@ export default class PreloaderScene extends Phaser.Scene {
     this.add.image(322.5, 280, "logo");
 
     // display progress bar
-    var progressBar = this.add.graphics();
-    var progressBox = this.add.graphics();
+    const progressBar = this.add.graphics();
+    const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(220.5, 480, 320, 50);
+    progressBox.fillRect(200.5, 480, 320, 50);
 
-    var width = this.cameras.main.width;
-    var height = this.cameras.main.height;
-    var loadingText = this.make.text({
-      x: 240.5,
-      y: 680,
-      text: "Loading...",
-      style: {
-        font: "20px monospace",
-        fill: "#ffffff",
-      },
-    });
-    loadingText.setOrigin(0.5, 0.5);
 
-    var percentText = this.make.text({
+
+    const percentText = this.make.text({
       x: 320.5,
       y: 540,
       text: "0%",
@@ -39,9 +28,9 @@ export default class PreloaderScene extends Phaser.Scene {
     });
     percentText.setOrigin(0.5, 0.5);
 
-    var assetText = this.make.text({
-      x: 240.5,
-      y: 220,
+    const assetText = this.make.text({
+      x: 320.5,
+      y: 570,
       text: "",
       style: {
         font: "18px monospace",
@@ -55,7 +44,7 @@ export default class PreloaderScene extends Phaser.Scene {
       percentText.setText(parseInt(value * 100) + "%");
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(235.5, 495, 300 * value, 30);
+      progressBar.fillRect(215.5, 495, 300 * value, 30);
     });
 
     // update file progress text

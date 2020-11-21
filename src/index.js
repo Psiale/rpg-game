@@ -27,14 +27,31 @@ const config = {
     roundPixels: true,
   };
   
-  const game = new Phaser.Game(config); // eslint-disable-line no-unused-vars  
+  class Game extends Phaser.Game {
+    constructor() {
+      super(config)
+      this.scene.add('Boot',BootScene)
+      this.scene.add('Preloader', PreloaderScene)
+      this.scene.add('Title', TitleScene)
+      this.scene.add('Options', OptionsScene)
+      this.scene.add('Credit', CreditsScene )
+      this.scene.add('World', WorldScene)
+      this.scene.add('Battle', BattleScene )
+      this.scene.add('UI', UIScene )
+      this.scene.start('Boot')
+    }
+  }
+
+  // const game = new Phaser.Game(config); // eslint-disable-line no-unused-vars  
   
-  game.scene.add('Boot',BootScene)
-  game.scene.add('Preloader', PreloaderScene)
-  game.scene.add('Title', TitleScene)
-  game.scene.add('Options', OptionsScene)
-  game.scene.add('Credit', CreditsScene )
-  game.scene.add('World', WorldScene)
-  game.scene.add('Battle', BattleScene )
-  game.scene.add('UI', UIScene )
-  game.scene.start('Boot')
+  // game.scene.add('Boot',BootScene)
+  // game.scene.add('Preloader', PreloaderScene)
+  // game.scene.add('Title', TitleScene)
+  // game.scene.add('Options', OptionsScene)
+  // game.scene.add('Credit', CreditsScene )
+  // game.scene.add('World', WorldScene)
+  // game.scene.add('Battle', BattleScene )
+  // game.scene.add('UI', UIScene )
+  // game.scene.start('Boot')
+
+  window.game = new Game();
