@@ -6,15 +6,15 @@ export default class TitleScene extends Phaser.Scene {
     }
 
     preload() {
-
+        this.add.image(332.5, 150, 'gameLogo').setScale(1.8)
     }
 
     create() {
         // Game
-this.fightButton = this.add.sprite(322.5, 200, 'fight-button').setInteractive();
-this.optionsButton = this.add.sprite(322.5, 300, 'options-button').setInteractive();
-this.scoreButton = this.add.sprite(322.5, 400, 'score-button').setInteractive();
-this.creditsButton = this.add.sprite(322.5, 500, 'credits-button').setInteractive();
+this.fightButton = this.add.sprite(322.5, 350, 'fight-button').setInteractive();
+this.optionsButton = this.add.sprite(322.5, 450, 'options-button').setInteractive();
+this.scoreButton = this.add.sprite(322.5, 550, 'score-button').setInteractive();
+this.creditsButton = this.add.sprite(322.5, 650, 'credits-button').setInteractive();
 // this.centerButton(this.fightButton, 1);
 
 // this.centerButton(this.optionsButton, 1)

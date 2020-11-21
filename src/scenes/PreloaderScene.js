@@ -83,6 +83,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image("player_retro_fight", "character_retro_back.png");
     this.load.image('box', 'grey_box.png');
     this.load.image('checkedBox', 'blue_boxCheckmark.png');
+    this.load.image('blueButton1', 'blue_button02.png');
+    this.load.image('blueButton2', 'blue_button03.png');
     this.load.audio('intro', ['music/intro.mp3'])
     this.load.spritesheet("boss1", "boss1.png", {
       frameWidth: 127,
