@@ -44,7 +44,7 @@ export default class PreloaderScene extends Phaser.Scene {
       percentText.setText(parseInt(value * 100) + "%");
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(215.5, 495, 300 * value, 30);
+      progressBar.fillRect(220, 495, 300 * value, 30);
     });
 
     // update file progress text

@@ -14,15 +14,11 @@ export default class WorldScene extends Phaser.Scene {
   create() {
     const map = this.make.tilemap({ key: "map" });
     this.model = this.sys.game.globals.model;
-    console.log(`is the music playing?   ${this.model.musicOn}`)
-    console.log(`is the bgmusic playing? ${this.model.bgMusicPlaying}`)
-    const music = this.sys.game.globals.bgMusic
-    music.stop();
-    if (this.model.musicOn === true  && this.model.bgMusicPlaying === false) {
+    if (this.model.musicOn === true) {
       console.log('Am i Working?')
-      this.bgMusic = this.sound.add("worldMusic", { volume: 0.5 });
+      this.bgMusic = this.sound.add("worldMusic", { volume: 0.5, loop: true,});
       this.bgMusic.play();
-      this.model.bgMusicPlaying = true
+      this.model.bgMusicPlaying = false
       this.sys.game.globals.bgMusic = this.bgMusic;
     }
 
@@ -157,6 +153,7 @@ export default class WorldScene extends Phaser.Scene {
     // shake the world
     this.cameras.main.shake(300)
     this.bgMusic.stop();
+    this.game.sound.stopAll();
     this.sys.game.globals.bgMusic = this.bgMusic;
     this.scene.switch('Battle')
   }

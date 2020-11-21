@@ -77,14 +77,12 @@ export class BattleScene extends Phaser.Scene {
       this.units[i].destroy();
     }
     this.units.length = 0;
-    this.model = this.sys.game.globals.model;
-    this.bgMusic = this.sys.game.globals.bgMusic
-    this.bgMusic.stop();
-    this.bgMusic = this.sound.add("worldMusic", { volume: 0.5 });
-      this.bgMusic.play();
-      this.sys.game.globals.bgMusic = this.bgMusic;
     // sleep the UI
     this.scene.sleep("UI");
+    this.model = this.sys.game.globals.model;
+    this.game.sound.stopAll()
+      this.bgMusic = this.sound.add("worldMusic", { volume: 0.5, loop: true });
+      this.bgMusic.play();
     // return to WorldScene and sleep current BattleScene
     this.scene.switch("World");
   }
@@ -115,6 +113,16 @@ export class BattleScene extends Phaser.Scene {
   // }
 
   startBattle() {
+    this.model = this.sys.game.globals.model;
+    console.log(`is the music playing?   ${this.model.musicOn}`)
+    console.log(`is the bgmusic playing? ${this.model.bgMusicPlaying}`)
+    if (this.model.musicOn === true  && this.model.bgMusicPlaying === false) {
+      console.log('Am i Working?')
+      this.bgMusic = this.sound.add("battleNormal", { volume: 0.5, loop: true,});
+      this.bgMusic.play();
+      this.model.bgMusicPlaying = false
+      this.sys.game.globals.bgMusic = this.bgMusic;
+    }
     let heroHP;
  (localStorage.retrieveItem('heroHP')) ? heroHP = localStorage.retrieveItem('heroHP') : heroHP = 100;
     // player character - hero
@@ -449,11 +457,12 @@ export class UIScene extends Phaser.Scene {
     this.sys.events.on("wake", this.createMenu, this);
     
     this.createMenu();
+    console.log('Am i Working?')
     this.model = this.sys.game.globals.model;
-    if (this.model.musicOn === true ) {
-      this.bgMusic = this.sound.add("battleBoss", { volume: 0.5 });
-      this.bgMusic.play();
-    }
+    this.bgMusic = this.sound.add("battleNormal", { volume: 0.5, loop: true,});
+    this.bgMusic.play();
+    this.model.bgMusicPlaying = false
+    this.sys.game.globals.bgMusic = this.bgMusic;
 
     this.battleScene.nextTurn();
   }
