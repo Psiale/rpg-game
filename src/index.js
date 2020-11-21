@@ -6,6 +6,7 @@ import CreditsScene from './scenes/CreditsScene'
 import BootScene from './scenes/BootScene'
 import WorldScene from './scenes/WorldScene'
 import {BattleScene, UIScene } from './scenes/BattleScene'
+import Model from './model'
 
 const config = {
     type: Phaser.AUTO,
@@ -30,6 +31,8 @@ const config = {
   class Game extends Phaser.Game {
     constructor() {
       super(config)
+      const model = new Model();
+      this.globals = { model }
       this.scene.add('Boot',BootScene)
       this.scene.add('Preloader', PreloaderScene)
       this.scene.add('Title', TitleScene)

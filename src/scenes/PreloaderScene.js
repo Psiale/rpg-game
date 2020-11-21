@@ -58,7 +58,6 @@ export default class PreloaderScene extends Phaser.Scene {
       function () {
         progressBar.destroy();
         progressBox.destroy();
-        loadingText.destroy();
         percentText.destroy();
         assetText.destroy();
         this.ready();
