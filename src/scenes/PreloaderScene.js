@@ -74,6 +74,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('blueButton1', 'blue_button02.png');
     this.load.image('blueButton2', 'blue_button03.png');
     this.load.audio('intro', ['music/intro.mp3'])
+    this.load.audio('battleBoss', ['music/battle_boss.mp3'])
+    this.load.audio('battleNormal', ['music/battle_normal.mp3'])
+    this.load.audio('worldMusic', ['music/world.mp3'])
+    
     this.load.spritesheet("boss1", "boss1.png", {
       frameWidth: 127,
       frameHeight: 125,

@@ -13,6 +13,18 @@ export default class WorldScene extends Phaser.Scene {
 
   create() {
     const map = this.make.tilemap({ key: "map" });
+    this.model = this.sys.game.globals.model;
+    console.log(`is the music playing?   ${this.model.musicOn}`)
+    console.log(`is the bgmusic playing? ${this.model.bgMusicPlaying}`)
+    const music = this.sys.game.globals.bgMusic
+    music.stop();
+    if (this.model.musicOn === true  && this.model.bgMusicPlaying === false) {
+      console.log('Am i Working?')
+      this.bgMusic = this.sound.add("worldMusic", { volume: 0.5 });
+      this.bgMusic.play();
+      this.model.bgMusicPlaying = true
+      this.sys.game.globals.bgMusic = this.bgMusic;
+    }
 
     const tiles = map.addTilesetImage("main", "tiles");
     const bellowPlayer = map.createStaticLayer("Below Player", tiles, 0, 0);
@@ -98,6 +110,13 @@ export default class WorldScene extends Phaser.Scene {
       this
     );
 
+    const scoreBox = this.add.image(20, 20, 'blueButton2');
+    scoreBox.setScrollFactor(0, 0);
+    scoreBox.scale = 0.5;
+
+    this.textScore = this.add.text(2, 10, `Score: 0`, { fontSize: '14px', fill: '#fff' });
+    this.textScore.setScrollFactor(0, 0);
+
     this.sys.events.on('wake', this.wake, this)
   }
 
@@ -137,6 +156,8 @@ export default class WorldScene extends Phaser.Scene {
     
     // shake the world
     this.cameras.main.shake(300)
+    this.bgMusic.stop();
+    this.sys.game.globals.bgMusic = this.bgMusic;
     this.scene.switch('Battle')
   }
 

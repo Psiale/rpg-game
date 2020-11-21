@@ -77,6 +77,12 @@ export class BattleScene extends Phaser.Scene {
       this.units[i].destroy();
     }
     this.units.length = 0;
+    this.model = this.sys.game.globals.model;
+    this.bgMusic = this.sys.game.globals.bgMusic
+    this.bgMusic.stop();
+    this.bgMusic = this.sound.add("worldMusic", { volume: 0.5 });
+      this.bgMusic.play();
+      this.sys.game.globals.bgMusic = this.bgMusic;
     // sleep the UI
     this.scene.sleep("UI");
     // return to WorldScene and sleep current BattleScene
@@ -443,6 +449,11 @@ export class UIScene extends Phaser.Scene {
     this.sys.events.on("wake", this.createMenu, this);
     
     this.createMenu();
+    this.model = this.sys.game.globals.model;
+    if (this.model.musicOn === true ) {
+      this.bgMusic = this.sound.add("battleBoss", { volume: 0.5 });
+      this.bgMusic.play();
+    }
 
     this.battleScene.nextTurn();
   }
