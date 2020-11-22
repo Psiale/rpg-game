@@ -1,7 +1,8 @@
+import 'regenerator-runtime';
 const fetch = require('node-fetch');
 
 
-const apiKey = 'c1MEnlntwBhawxFFqK9g'
+
 
 // const initGame = async () => {
 // const baseUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/'
@@ -23,9 +24,9 @@ const apiKey = 'c1MEnlntwBhawxFFqK9g'
 //   return result;
 // };
 
-const sendRequest = async (apiKey, method, urlParam, userName = '', userScore = '') => {
+const sendRequest = async (method, urlParam, userName = '', userScore = '') => {
   let data;
-  
+  const apiKey = 'c1MEnlntwBhawxFFqK9g'
     const request = JSON.stringify({
     user: userName,
     score: userScore,
@@ -56,6 +57,8 @@ const sendRequest = async (apiKey, method, urlParam, userName = '', userScore = 
   
     const response = await fetch(baseUrl, data);
   const result = await response.json();
-  
+  console.log(result)
   return result.result
 }
+
+export {sendRequest}

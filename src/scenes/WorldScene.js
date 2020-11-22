@@ -96,7 +96,8 @@ export default class WorldScene extends Phaser.Scene {
     this.spawns.create(120, 120, 35, 35)
     this.spawns.create(580, 150, 35, 35)
     this.spawns.create(380, 100, 35, 35)
-    this.spawns.create(100, 390, 35, 35)
+    this.spawns.create(350, 415, 35, 35)
+    this.spawns.create(550, 415, 35, 35)
     
     this.physics.add.overlap(
       player_retro,

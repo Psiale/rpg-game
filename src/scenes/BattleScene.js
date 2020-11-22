@@ -1,6 +1,9 @@
 import "phaser";
 import * as Utilities from '../helpers/utilities'
 import * as localStorage from '../helpers/localStorage'
+import * as Score from '../helpers/score'
+
+const score = 0;
 
 export class BattleScene extends Phaser.Scene {
   constructor() {
@@ -48,16 +51,18 @@ export class BattleScene extends Phaser.Scene {
     const enemy  = this.enemies[0]
     // if all enemies are dead we have VICTORY
     for (let i = 0; i < this.enemies.length; i++) {
-      const enemy = this.enemies[i];
       
       if (enemy.living) victory = false;
     }
     let gameOver = true;
     // If all heroes are dead we have GAMEOVER
     for (let i = 0; i < this.heroes.length; i++) {
-      const heroe = this.heroes[i];
       if (heroe.living) gameOver = false;
     }
+
+    if(gameOver)
+    Score.updateUserAPIScore(heroe, 'Alexis', 600)
+    
       // Im trying to increase life of character if he finds Sain Axolotl, but it hasn't worked 
       // if(victory && enemy.type === 'Saint Axolotl') {
         
@@ -147,7 +152,7 @@ export class BattleScene extends Phaser.Scene {
 
      
      const bossList = [
-     boss1, boss2, boss3, boss4, boss5, boss6
+     boss1, boss1,
      ]
 
      const randomBoss = Utilities.randomElement(bossList, 0, bossList.length -1)
