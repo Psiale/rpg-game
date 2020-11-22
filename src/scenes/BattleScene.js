@@ -60,8 +60,7 @@ export class BattleScene extends Phaser.Scene {
       if (heroe.living) gameOver = false;
     }
 
-    if(gameOver)
-    Score.updateUserAPIScore(heroe, 'Alexis', 600)
+    if(gameOver) Score.updateUserAPIScore(heroe, localStorage.retrieveItem('userName'), 600)
     
       // Im trying to increase life of character if he finds Sain Axolotl, but it hasn't worked 
       // if(victory && enemy.type === 'Saint Axolotl') {

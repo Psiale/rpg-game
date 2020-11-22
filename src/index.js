@@ -5,6 +5,7 @@ import OptionsScene from './scenes/OptionsScene'
 import CreditsScene from './scenes/CreditsScene'
 import BootScene from './scenes/BootScene'
 import WorldScene from './scenes/WorldScene'
+import UserConfigScene from './scenes/UserConfigScene'
 import {BattleScene, UIScene } from './scenes/BattleScene'
 import Model from './model'
 
@@ -32,9 +33,10 @@ const config = {
     constructor() {
       super(config)
       const model = new Model();
-      this.globals = { model, bgMusic: null}
+      this.globals = { model, bgMusic: null, userName: ''}
       this.scene.add('Boot',BootScene)
       this.scene.add('Preloader', PreloaderScene)
+      this.scene.add('UserConfig', UserConfigScene)
       this.scene.add('Title', TitleScene)
       this.scene.add('Options', OptionsScene)
       this.scene.add('Credit', CreditsScene )

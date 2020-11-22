@@ -3,6 +3,15 @@ export default class Model {
       this._soundOn = true;
       this._musicOn = true;
       this._bgMusicPlaying = false;
+      this._userName = ''
+    }
+
+    set userName(value) {
+      this._userName = value
+    }
+
+    get userName() {
+      return this._userName
     }
    
     set musicOn(value) {
