@@ -29,8 +29,8 @@ export default class PreloaderScene extends Phaser.Scene {
     percentText.setOrigin(0.5, 0.5);
 
     const assetText = this.make.text({
-      x: 320.5,
-      y: 570,
+      x: 315.5,
+      y: 560,
       text: "",
       style: {
         font: "18px monospace",
@@ -44,7 +44,7 @@ export default class PreloaderScene extends Phaser.Scene {
       percentText.setText(parseInt(value * 100) + "%");
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(220, 495, 300 * value, 30);
+      progressBar.fillRect(210, 490, 300 * value, 30);
     });
 
     // update file progress text
@@ -123,7 +123,7 @@ export default class PreloaderScene extends Phaser.Scene {
   ready () {
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('World');
     }
   }
 
