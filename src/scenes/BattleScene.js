@@ -3,7 +3,6 @@ import * as Utilities from '../helpers/utilities'
 import * as localStorage from '../helpers/localStorage'
 import * as Score from '../helpers/score'
 
-const score = 0;
 
 export class BattleScene extends Phaser.Scene {
   constructor() {
@@ -49,6 +48,7 @@ export class BattleScene extends Phaser.Scene {
     let victory = true;
     const heroe = this.heroes[0]
     const enemy  = this.enemies[0]
+    console.log(enemy)
     // if all enemies are dead we have VICTORY
     for (let i = 0; i < this.enemies.length; i++) {
       
@@ -59,8 +59,10 @@ export class BattleScene extends Phaser.Scene {
     for (let i = 0; i < this.heroes.length; i++) {
       if (heroe.living) gameOver = false;
     }
-
-    if(gameOver) Score.updateUserAPIScore(heroe, localStorage.retrieveItem('userName'), 600)
+    if(victory) Score.add(enemy.points);
+    
+    console.log(localStorage.retrieveItem('score'))
+    if(gameOver) Score.updateUserAPIScore(heroe, localStorage.retrieveItem('userName'), localStorage.retrieveItem('score'))
     
       // Im trying to increase life of character if he finds Sain Axolotl, but it hasn't worked 
       // if(victory && enemy.type === 'Saint Axolotl') {
@@ -128,7 +130,7 @@ export class BattleScene extends Phaser.Scene {
       this.sys.game.globals.bgMusic = this.bgMusic;
     }
     let heroHP;
- (localStorage.retrieveItem('heroHP')) ? heroHP = localStorage.retrieveItem('heroHP') : heroHP = 100;
+ (localStorage.retrieveItem('heroHp')) ? heroHP = localStorage.retrieveItem('heroHp') : heroHP = 200;
     // player character - hero
     const hero = new PlayerCharacter(
       this,
@@ -136,22 +138,22 @@ export class BattleScene extends Phaser.Scene {
       450,
       "player_retro_fight",
       1,
-      "hero",
+      "Hero",
       heroHP,
-      20
+      25
     );
     this.add.existing(hero);
     
-     const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Cutulhu", 50, 35);
-     const boss2 = new Enemy(this, 322.5, 150, "boss2", null, "Saint Axolotl", 25, 10);
-     const boss3 = new Enemy(this, 322.5, 150, "boss3", null, "Bunny of Death", 30, 15);
-     const boss4 = new Enemy(this, 322.5, 150, "boss4", null, "Crazy Lizard", 80, 5);
-     const boss5 = new Enemy(this, 322.5, 150, "boss5", null, "Wiked Demon", 25, 8);
-     const boss6 = new Enemy(this, 322.5, 150, "boss6", null, "Toad", 20, 3);
+     const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Cutulhu", 50, 35, 1000);
+     const boss2 = new Enemy(this, 322.5, 150, "boss2", null, "Saint Axolotl", 20, 10, 100);
+     const boss3 = new Enemy(this, 322.5, 150, "boss3", null, "Bunny of Death", 30, 15, 800);
+     const boss4 = new Enemy(this, 322.5, 150, "boss4", null, "Crazy Lizard", 80, 5, 500);
+     const boss5 = new Enemy(this, 322.5, 150, "boss5", null, "Wiked Demon", 25, 8, 150);
+     const boss6 = new Enemy(this, 322.5, 150, "boss6", null, "Toad", 20, 3, 10);
 
      
      const bossList = [
-     boss1, boss1,
+     boss1, boss1
      ]
 
      const randomBoss = Utilities.randomElement(bossList, 0, bossList.length -1)
@@ -196,7 +198,7 @@ const Unit = new Phaser.Class({
         ${target.type} remaining life: ${target.hp}`
       );
       // Saving the heros life so when the next battle is up the hero has and updated life
-      if (target.type === 'hero') localStorage.saveItem('heroHp', target.hp)
+      if (target.type === 'Hero') localStorage.saveItem('heroHp', target.hp)
     }
   },
 
@@ -215,8 +217,9 @@ const Unit = new Phaser.Class({
 const Enemy = new Phaser.Class({
   Extends: Unit,
 
-  initialize: function Enemy(scene, x, y, texture, frame, type, hp, damage) {
+  initialize: function Enemy(scene, x, y, texture, frame, type, hp, damage, points) {
     Unit.call(this, scene, x, y, texture, frame, type, hp, damage);
+    this.points = points
     this.setScale(1.5);
   },
 });
