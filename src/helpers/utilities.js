@@ -1,4 +1,8 @@
 import 'phaser'
 const randomElement = (arr, start, end) => arr[Phaser.Math.Between(start, end)]
 
-export { randomElement }
+const checkZoneCount = (length) => {
+    if(length < 0) return true;
+}
+
+export { randomElement, checkZoneCount }

@@ -6,6 +6,7 @@ import CreditsScene from './scenes/CreditsScene'
 import BootScene from './scenes/BootScene'
 import WorldScene from './scenes/WorldScene'
 import UserConfigScene from './scenes/UserConfigScene'
+import GameOverScene from './scenes/GameOverScene' 
 import {BattleScene, UIScene } from './scenes/BattleScene'
 import Model from './model'
 
@@ -33,7 +34,7 @@ const config = {
     constructor() {
       super(config)
       const model = new Model();
-      this.globals = { model, bgMusic: null, userName: ''}
+      this.globals = { model, bgMusic: null, userName: '', zoneCount: 0}
       this.scene.add('Boot',BootScene)
       this.scene.add('Preloader', PreloaderScene)
       this.scene.add('UserConfig', UserConfigScene)
@@ -43,6 +44,7 @@ const config = {
       this.scene.add('World', WorldScene)
       this.scene.add('Battle', BattleScene )
       this.scene.add('UI', UIScene )
+      this.scene.add('GameOver', GameOverScene)
       this.scene.start('Boot')
     }
   }
