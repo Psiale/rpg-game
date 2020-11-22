@@ -26,7 +26,8 @@ export default class BootScene extends Phaser.Scene {
     }
 
     create() {
-        localStorage.saveItem('heroHp', 100)
+        localStorage.saveItem('score', 0);
+        localStorage.saveItem('heroHp', 200)
         this.scene.start('Preloader')
     }
 }
