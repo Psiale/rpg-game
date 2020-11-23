@@ -4,7 +4,8 @@
   "description": "An RPG game made with Phaser 3 and Webpack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test-watch": "jest --watch",
     "build": "webpack",
     "start": "webpack serve"
   },
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/Psiale/rpg-game#readme",
   "dependencies": {
+    "jest": "^26.6.3",
     "node-fetch": "^2.6.1",
     "phaser": "^3.24.1",
     "regenerator-runtime": "^0.13.7",
