@@ -3,8 +3,11 @@ import PreloaderScene from './scenes/PreloaderScene'
 import TitleScene from './scenes/TitleScene'
 import OptionsScene from './scenes/OptionsScene'
 import CreditsScene from './scenes/CreditsScene'
+import ScoresScene from './scenes/scoreScene'
 import BootScene from './scenes/BootScene'
 import WorldScene from './scenes/WorldScene'
+import UserConfigScene from './scenes/UserConfigScene'
+import GameOverScene from './scenes/GameOverScene' 
 import {BattleScene, UIScene } from './scenes/BattleScene'
 import Model from './model'
 
@@ -20,7 +23,7 @@ const config = {
     physics: {
       default: 'arcade',
       arcade: {
-        debug: false,
+        debug: true,
         gravity: {y: 0, x: 0 },
       },
     },
@@ -32,15 +35,18 @@ const config = {
     constructor() {
       super(config)
       const model = new Model();
-      this.globals = { model, bgMusic: null}
+      this.globals = { model, bgMusic: null, userName: '', zoneCount: 0}
       this.scene.add('Boot',BootScene)
       this.scene.add('Preloader', PreloaderScene)
+      this.scene.add('UserConfig', UserConfigScene)
       this.scene.add('Title', TitleScene)
-      this.scene.add('Options', OptionsScene)
+      // this.scene.add('Options', OptionsScene)
       this.scene.add('Credit', CreditsScene )
+      this.scene.add('Scores', ScoresScene)
       this.scene.add('World', WorldScene)
       this.scene.add('Battle', BattleScene )
       this.scene.add('UI', UIScene )
+      this.scene.add('GameOver', GameOverScene)
       this.scene.start('Boot')
     }
   }

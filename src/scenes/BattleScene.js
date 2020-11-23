@@ -1,6 +1,8 @@
 import "phaser";
 import * as Utilities from '../helpers/utilities'
 import * as localStorage from '../helpers/localStorage'
+import * as Score from '../helpers/score'
+
 
 export class BattleScene extends Phaser.Scene {
   constructor() {
@@ -8,7 +10,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   create() {
-    this.cameras.main.setBackgroundColor("rgba(0, 200, 0, 0.5)");
+    this.cameras.main.setBackgroundColor("rgba(0, 0, 0)");
     this.startBattle();
     this.sys.events.on("wake", this.startBattle, this);
   }
@@ -46,17 +48,29 @@ export class BattleScene extends Phaser.Scene {
     let victory = true;
     const heroe = this.heroes[0]
     const enemy  = this.enemies[0]
+    console.log(enemy)
     // if all enemies are dead we have VICTORY
     for (let i = 0; i < this.enemies.length; i++) {
-      const enemy = this.enemies[i];
       
       if (enemy.living) victory = false;
     }
     let gameOver = true;
     // If all heroes are dead we have GAMEOVER
     for (let i = 0; i < this.heroes.length; i++) {
-      const heroe = this.heroes[i];
       if (heroe.living) gameOver = false;
+    }
+    if(victory) { 
+      Score.add(enemy.points);
+      Utilities.reduceNumberOfZones(localStorage.retrieveItem('numberOfZones'))
+    }
+    console.log(`number of zones: ${localStorage.retrieveItem('numberOfZones')}`)
+    if(Utilities.checkZoneCount(localStorage.retrieveItem('numberOfZones')) || gameOver ) {
+      console.log('me mori o gane')
+      Score.updateUserAPIScore(heroe, localStorage.retrieveItem('userName'), localStorage.retrieveItem('score'))
+      this.scene.remove('UI');
+      this.scene.remove('Battle')
+      this.scene.stop('World')
+      this.scene.start('GameOver')
     }
       // Im trying to increase life of character if he finds Sain Axolotl, but it hasn't worked 
       // if(victory && enemy.type === 'Saint Axolotl') {
@@ -124,7 +138,7 @@ export class BattleScene extends Phaser.Scene {
       this.sys.game.globals.bgMusic = this.bgMusic;
     }
     let heroHP;
- (localStorage.retrieveItem('heroHP')) ? heroHP = localStorage.retrieveItem('heroHP') : heroHP = 100;
+ (localStorage.retrieveItem('heroHp')) ? heroHP = localStorage.retrieveItem('heroHp') : heroHP = 200;
     // player character - hero
     const hero = new PlayerCharacter(
       this,
@@ -132,22 +146,22 @@ export class BattleScene extends Phaser.Scene {
       450,
       "player_retro_fight",
       1,
-      "hero",
+      "Hero",
       heroHP,
-      20
+      25
     );
     this.add.existing(hero);
     
-     const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Cutulhu", 50, 35);
-     const boss2 = new Enemy(this, 322.5, 150, "boss2", null, "Saint Axolotl", 25, 10);
-     const boss3 = new Enemy(this, 322.5, 150, "boss3", null, "Bunny of Death", 30, 15);
-     const boss4 = new Enemy(this, 322.5, 150, "boss4", null, "Crazy Lizard", 80, 5);
-     const boss5 = new Enemy(this, 322.5, 150, "boss5", null, "Wiked Demon", 25, 8);
-     const boss6 = new Enemy(this, 322.5, 150, "boss6", null, "Toad", 20, 3);
+     const boss1 = new Enemy(this, 322.5, 150, "boss1", null, "Cutulhu", 50, 35, 1000);
+     const boss2 = new Enemy(this, 322.5, 150, "boss2", null, "Saint Axolotl", 20, 10, 100);
+     const boss3 = new Enemy(this, 322.5, 150, "boss3", null, "Bunny of Death", 30, 15, 800);
+     const boss4 = new Enemy(this, 322.5, 150, "boss4", null, "Crazy Lizard", 80, 5, 500);
+     const boss5 = new Enemy(this, 322.5, 150, "boss5", null, "Wiked Demon", 25, 8, 150);
+     const boss6 = new Enemy(this, 322.5, 150, "boss6", null, "Toad", 20, 3, 10);
 
      
      const bossList = [
-     boss1, boss2, boss3, boss4, boss5, boss6
+     boss2, boss2
      ]
 
      const randomBoss = Utilities.randomElement(bossList, 0, bossList.length -1)
@@ -192,7 +206,7 @@ const Unit = new Phaser.Class({
         ${target.type} remaining life: ${target.hp}`
       );
       // Saving the heros life so when the next battle is up the hero has and updated life
-      if (target.type === 'hero') localStorage.saveItem('heroHp', target.hp)
+      if (target.type === 'Hero') localStorage.saveItem('heroHp', target.hp)
     }
   },
 
@@ -211,8 +225,9 @@ const Unit = new Phaser.Class({
 const Enemy = new Phaser.Class({
   Extends: Unit,
 
-  initialize: function Enemy(scene, x, y, texture, frame, type, hp, damage) {
+  initialize: function Enemy(scene, x, y, texture, frame, type, hp, damage, points) {
     Unit.call(this, scene, x, y, texture, frame, type, hp, damage);
+    this.points = points
     this.setScale(1.5);
   },
 });
@@ -355,7 +370,7 @@ const ActionsMenu = new Phaser.Class({
 
   initialize: function ActionsMenu(x, y, scene) {
     Menu.call(this, x, y, scene);
-    this.addMenuItem("Attack");
+    this.addMenuItem("Attack(spacebar)");
   },
   confirm: function () {
     this.scene.events.emit("SelectedAction");
@@ -375,7 +390,7 @@ const EnemiesMenu = new Phaser.Class({
 
 // Message class
 
-var Message = new Phaser.Class({
+const Message = new Phaser.Class({
   Extends: Phaser.GameObjects.Container,
 
   initialize: function Message(scene, events) {
@@ -383,14 +398,14 @@ var Message = new Phaser.Class({
     const graphics = this.scene.add.graphics();
     this.add(graphics);
     graphics.lineStyle(1, 0xffffff, 0.8);
-    graphics.fillStyle(0x031f4c, 0.3);
-    graphics.strokeRect(100, 100, 180, 30);
-    graphics.fillRect(100, 100, 180, 30);
-    this.text = new Phaser.GameObjects.Text(scene, 200, 200, "Fuck me", {
+    graphics.fillStyle(0x520C52, 0.3);
+    graphics.strokeRect(200, 200, 200, 200);
+    graphics.fillRect(200, 200, 200, 200);
+    this.text = new Phaser.GameObjects.Text(scene, 300, 300, "Fuck me", {
       color: "#ffffff",
       align: "center",
-      fontSize: 13,
-      wordWrap: { width: 160, useAdvancedWrap: true },
+      fontSize: 18,
+      wordWrap: { width: 200, useAdvancedWrap: true },
     });
     this.add(this.text);
     this.text.setOrigin(0.5);
@@ -402,7 +417,7 @@ var Message = new Phaser.Class({
     this.visible = true;
     if (this.hideEvent) this.hideEvent.remove(false);
     this.hideEvent = this.scene.time.addEvent({
-      delay: 2000,
+      delay: 3000,
       callback: this.hideMessage,
       callbackScope: this,
     });
@@ -423,11 +438,11 @@ export class UIScene extends Phaser.Scene {
     this.battleScene = this.scene.get("Battle");
     this.graphics = this.add.graphics();
     this.graphics.lineStyle(1, 0xffffff);
-    this.graphics.fillStyle(0x031f4c, 1);
+    this.graphics.fillStyle(0x520C52, 1);
     // this.graphics.strokeRect(20, 600, 215, 100);
     // this.graphics.fillRect(20, 600, 215, 100);
-    this.graphics.strokeRect(116, 600, 400, 100);
-    this.graphics.fillRect(116, 600, 400, 100);
+    this.graphics.strokeRect(150, 600, 400, 100);
+    this.graphics.fillRect(150, 600, 400, 100);
     // this.graphics.strokeRect(431, 600, 195, 100);
     // this.graphics.fillRect(431, 600, 195, 100);
 
@@ -437,7 +452,7 @@ export class UIScene extends Phaser.Scene {
     this.message = new Message(this, this.battleScene.events);
     this.add.existing(this.message);
     this.heroesMenu = new HeroesMenu(0, 0, this);
-    this.actionsMenu = new ActionsMenu(280.5, 600, this);
+    this.actionsMenu = new ActionsMenu(200.5, 630, this);
     this.enemiesMenu = new EnemiesMenu(0, 0, this);
 
     // the currently selected menu

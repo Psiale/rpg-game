@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Psiale/rpg-game#readme",
   "dependencies": {
+    "node-fetch": "^2.6.1",
     "phaser": "^3.24.1",
+    "regenerator-runtime": "^0.13.7",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0"
   },

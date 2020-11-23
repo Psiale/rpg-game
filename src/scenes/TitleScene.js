@@ -22,14 +22,11 @@ export default class TitleScene extends Phaser.Scene {
     this.fightButton = this.add
       .sprite(300.5, 350, "fight-button")
       .setInteractive();
-    this.optionsButton = this.add
-      .sprite(322.5, 450, "options-button")
-      .setInteractive();
     this.scoreButton = this.add
-      .sprite(322.5, 550, "score-button")
+      .sprite(322.5, 450, "score-button")
       .setInteractive();
     this.creditsButton = this.add
-      .sprite(322.5, 650, "credits-button")
+      .sprite(322.5, 550, "credits-button")
       .setInteractive();
     // this.centerButton(this.fightButton, 1);
 
@@ -54,12 +51,11 @@ export default class TitleScene extends Phaser.Scene {
       }.bind(this)
     );
 
-    this.optionsButton.on(
-      "pointerdown",
+    this.scoreButton.on('pointerdown',
       function (pointer) {
-        this.scene.start("Options");
-      }.bind(this)
-    );
+      this.scene.start("Scores")
+    }.bind(this)
+    )
 
     this.creditsTween = this.tweens.add({
       targets: this.creditsText,
