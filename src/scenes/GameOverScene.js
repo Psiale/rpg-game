@@ -69,7 +69,7 @@ export default class GameOverScene extends Phaser.Scene {
         delay: 1000,
         onComplete: function () {
           this.destroy;
-          this.scene.start('Title');
+          this.scene.start('Boot');
         }.bind(this)
       });
 

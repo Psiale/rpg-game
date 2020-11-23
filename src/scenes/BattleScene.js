@@ -59,15 +59,17 @@ export class BattleScene extends Phaser.Scene {
     for (let i = 0; i < this.heroes.length; i++) {
       if (heroe.living) gameOver = false;
     }
-    if(victory) Score.add(enemy.points);
-    
+    if(victory) { 
+      Score.add(enemy.points);
+      Utilities.reduceNumberOfZones(localStorage.retrieveItem('numberOfZones'))
+    }
     console.log(`number of zones: ${localStorage.retrieveItem('numberOfZones')}`)
     if(Utilities.checkZoneCount(localStorage.retrieveItem('numberOfZones')) || gameOver ) {
       Score.updateUserAPIScore(heroe, localStorage.retrieveItem('userName'), localStorage.retrieveItem('score'))
       this.scene.remove('UI');
       this.scene.remove('Battle')
       this.scene.stop('World')
-      this.scene.start('GameOVer')
+      this.scene.start('GameOver')
     }
       // Im trying to increase life of character if he finds Sain Axolotl, but it hasn't worked 
       // if(victory && enemy.type === 'Saint Axolotl') {
