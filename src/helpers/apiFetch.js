@@ -24,6 +24,8 @@ const fetch = require('node-fetch');
 //   return result;
 // };
 
+const topScore = (arr) => arr.sort((a,b) => b.score - a.score) 
+
 const sendRequest = async (method, urlParam, userName = '', userScore = '') => {
   let data;
   const apiKey = 'c1MEnlntwBhawxFFqK9g'
@@ -58,7 +60,7 @@ const sendRequest = async (method, urlParam, userName = '', userScore = '') => {
     const response = await fetch(baseUrl, data);
   const result = await response.json();
   console.log(result)
-  return result.result
+  return topScore(result.result)
 }
 
 export {sendRequest}
