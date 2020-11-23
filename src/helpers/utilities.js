@@ -1,8 +1,11 @@
 import 'phaser'
+import * as localStorage from './localStorage'
 const randomElement = (arr, start, end) => arr[Phaser.Math.Between(start, end)]
 
-const checkZoneCount = (length) => {
-    if(length < 0) return true;
+const checkZoneCount = (number) => {
+    if(number < 0) return true;
+    number--
+    localStorage.saveItem('numberOfZones', number)
 }
 
 export { randomElement, checkZoneCount }

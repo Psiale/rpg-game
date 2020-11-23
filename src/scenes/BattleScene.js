@@ -61,8 +61,8 @@ export class BattleScene extends Phaser.Scene {
     }
     if(victory) Score.add(enemy.points);
     
-    console.log(localStorage.retrieveItem('score'))
-    if(Utilities.checkZoneCount(this.sys.game.globals.zoneCount || gameOver )) {
+    console.log(`number of zones: ${localStorage.retrieveItem('numberOfZones')}`)
+    if(Utilities.checkZoneCount(localStorage.retrieveItem('numberOfZones')) || gameOver ) {
       Score.updateUserAPIScore(heroe, localStorage.retrieveItem('userName'), localStorage.retrieveItem('score'))
       this.scene.remove('UI');
       this.scene.remove('Battle')
