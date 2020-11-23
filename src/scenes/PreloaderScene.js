@@ -123,7 +123,7 @@ export default class PreloaderScene extends Phaser.Scene {
   ready () {
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('UserConfig');
+      this.scene.start('Scores');
     }
   }
 

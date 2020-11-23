@@ -3,6 +3,7 @@ import PreloaderScene from './scenes/PreloaderScene'
 import TitleScene from './scenes/TitleScene'
 import OptionsScene from './scenes/OptionsScene'
 import CreditsScene from './scenes/CreditsScene'
+import ScoresScene from './scenes/scoreScene'
 import BootScene from './scenes/BootScene'
 import WorldScene from './scenes/WorldScene'
 import UserConfigScene from './scenes/UserConfigScene'
@@ -41,6 +42,7 @@ const config = {
       this.scene.add('Title', TitleScene)
       // this.scene.add('Options', OptionsScene)
       this.scene.add('Credit', CreditsScene )
+      this.scene.add('Scores', ScoresScene)
       this.scene.add('World', WorldScene)
       this.scene.add('Battle', BattleScene )
       this.scene.add('UI', UIScene )
