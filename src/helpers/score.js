@@ -7,14 +7,12 @@ const add = (newPoints) => {
     ? (score = localStorage.retrieveItem("score"))
     : (score = 0);
   score += newPoints;
-  console.log(score);
   localStorage.saveItem("score", score);
 };
 
-const updateUserAPIScore = (hero, userName, score) => {
-  console.log(`la vida del heroe es ${hero.hp}`);
-  console.log(apiFetch.sendRequest("GET", "scores"));
+const updateUserAPIScore = (userName, score) => {
   apiFetch.sendRequest("POST", "scores", userName, score);
+  return true;
 };
 
 export { add, updateUserAPIScore };

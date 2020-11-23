@@ -161,7 +161,7 @@ export class BattleScene extends Phaser.Scene {
 
      
      const bossList = [
-     boss2, boss2
+     boss1, boss2, boss3, boss4, boss5, boss6, boss1, boss3
      ]
 
      const randomBoss = Utilities.randomElement(bossList, 0, bossList.length -1)
