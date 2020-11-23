@@ -10,7 +10,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   create() {
-    this.cameras.main.setBackgroundColor("rgba(0, 200, 0, 0.5)");
+    this.cameras.main.setBackgroundColor("rgba(0, 0, 0)");
     this.startBattle();
     this.sys.events.on("wake", this.startBattle, this);
   }
@@ -370,7 +370,7 @@ const ActionsMenu = new Phaser.Class({
 
   initialize: function ActionsMenu(x, y, scene) {
     Menu.call(this, x, y, scene);
-    this.addMenuItem("Attack");
+    this.addMenuItem("Attack(spacebar)");
   },
   confirm: function () {
     this.scene.events.emit("SelectedAction");
@@ -390,7 +390,7 @@ const EnemiesMenu = new Phaser.Class({
 
 // Message class
 
-var Message = new Phaser.Class({
+const Message = new Phaser.Class({
   Extends: Phaser.GameObjects.Container,
 
   initialize: function Message(scene, events) {
@@ -398,14 +398,14 @@ var Message = new Phaser.Class({
     const graphics = this.scene.add.graphics();
     this.add(graphics);
     graphics.lineStyle(1, 0xffffff, 0.8);
-    graphics.fillStyle(0x031f4c, 0.3);
-    graphics.strokeRect(100, 100, 180, 30);
-    graphics.fillRect(100, 100, 180, 30);
-    this.text = new Phaser.GameObjects.Text(scene, 200, 200, "Fuck me", {
+    graphics.fillStyle(0x520C52, 0.3);
+    graphics.strokeRect(200, 200, 200, 200);
+    graphics.fillRect(200, 200, 200, 200);
+    this.text = new Phaser.GameObjects.Text(scene, 300, 300, "Fuck me", {
       color: "#ffffff",
       align: "center",
-      fontSize: 13,
-      wordWrap: { width: 160, useAdvancedWrap: true },
+      fontSize: 18,
+      wordWrap: { width: 200, useAdvancedWrap: true },
     });
     this.add(this.text);
     this.text.setOrigin(0.5);
@@ -417,7 +417,7 @@ var Message = new Phaser.Class({
     this.visible = true;
     if (this.hideEvent) this.hideEvent.remove(false);
     this.hideEvent = this.scene.time.addEvent({
-      delay: 2000,
+      delay: 3000,
       callback: this.hideMessage,
       callbackScope: this,
     });
@@ -438,11 +438,11 @@ export class UIScene extends Phaser.Scene {
     this.battleScene = this.scene.get("Battle");
     this.graphics = this.add.graphics();
     this.graphics.lineStyle(1, 0xffffff);
-    this.graphics.fillStyle(0x031f4c, 1);
+    this.graphics.fillStyle(0x520C52, 1);
     // this.graphics.strokeRect(20, 600, 215, 100);
     // this.graphics.fillRect(20, 600, 215, 100);
-    this.graphics.strokeRect(116, 600, 400, 100);
-    this.graphics.fillRect(116, 600, 400, 100);
+    this.graphics.strokeRect(150, 600, 400, 100);
+    this.graphics.fillRect(150, 600, 400, 100);
     // this.graphics.strokeRect(431, 600, 195, 100);
     // this.graphics.fillRect(431, 600, 195, 100);
 
@@ -452,7 +452,7 @@ export class UIScene extends Phaser.Scene {
     this.message = new Message(this, this.battleScene.events);
     this.add.existing(this.message);
     this.heroesMenu = new HeroesMenu(0, 0, this);
-    this.actionsMenu = new ActionsMenu(280.5, 600, this);
+    this.actionsMenu = new ActionsMenu(200.5, 630, this);
     this.enemiesMenu = new EnemiesMenu(0, 0, this);
 
     // the currently selected menu
