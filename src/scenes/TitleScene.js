@@ -51,6 +51,12 @@ export default class TitleScene extends Phaser.Scene {
       }.bind(this)
     );
 
+    this.scoreButton.on('pointerdown',
+      function (pointer) {
+      this.scene.start("Scores")
+    }.bind(this)
+    )
+
     this.creditsTween = this.tweens.add({
       targets: this.creditsText,
       y: -100,

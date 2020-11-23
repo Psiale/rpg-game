@@ -1,5 +1,6 @@
 import "phaser";
 import * as ApiFetch from  '../helpers/apiFetch'
+import * as Utilities from '../helpers/utilities'
 
 
 export default class ScoresScene extends Phaser.Scene {
@@ -22,6 +23,8 @@ export default class ScoresScene extends Phaser.Scene {
       645,
       720
     );
+
+    ApiFetch.topFive(Utilities.displayTextScore, this, Utilities.displayCustomText, 'No scores available', 222.5,360, "35px", "#952aec")
 
     Phaser.Display.Align.In.TopCenter(this.creditsText, this.zone, 0, -20);
 
