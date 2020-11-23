@@ -18,7 +18,7 @@ const displayTextScore = (index, result, self) => {
     `${index + 1}. ${result.user}: ${result.score}`,
     {
       fontSize: "32px",
-      fill: "#952aec",
+      fill: "#FDF498",
     }
   );
 };
