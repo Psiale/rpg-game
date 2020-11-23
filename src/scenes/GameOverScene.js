@@ -54,7 +54,7 @@ export default class GameOverScene extends Phaser.Scene {
         targets: this.madeByText,
         y: -300,
         ease: 'Power1',
-        duration: 3000,
+        duration: 5000,
         delay: 1000,
         onComplete: function () {
           this.madeByTween.destroy;
@@ -69,7 +69,7 @@ export default class GameOverScene extends Phaser.Scene {
         delay: 1000,
         onComplete: function () {
           this.destroy;
-          this.scene.start('Boot');
+          location.reload();
         }.bind(this)
       });
 

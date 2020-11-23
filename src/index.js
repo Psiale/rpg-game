@@ -39,7 +39,7 @@ const config = {
       this.scene.add('Preloader', PreloaderScene)
       this.scene.add('UserConfig', UserConfigScene)
       this.scene.add('Title', TitleScene)
-      this.scene.add('Options', OptionsScene)
+      // this.scene.add('Options', OptionsScene)
       this.scene.add('Credit', CreditsScene )
       this.scene.add('World', WorldScene)
       this.scene.add('Battle', BattleScene )
