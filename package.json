@@ -4,7 +4,8 @@
   "description": "An RPG game made with Phaser 3 and Webpack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test-watch": "jest --watch",
     "build": "webpack",
     "start": "webpack serve"
   },
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/Psiale/rpg-game#readme",
   "dependencies": {
+    "jest": "^26.6.3",
     "node-fetch": "^2.6.1",
     "phaser": "^3.24.1",
     "regenerator-runtime": "^0.13.7",
@@ -26,14 +28,24 @@
     "webpack-cli": "^4.2.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.12.7",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "copy-webpack-plugin": "^6.3.1",
     "css-loader": "^5.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.2.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-csstree-validator": "^1.9.0",
+    "stylelint-scss": "^3.17.2",
     "webpack-dev-server": "^3.11.0"
   }
 }
