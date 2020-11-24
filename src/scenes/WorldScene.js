@@ -94,7 +94,10 @@ export default class WorldScene extends Phaser.Scene {
     scoreBox.setScrollFactor(0, 0);
     scoreBox.scale = 0.5;
 
-    this.textScore = this.add.text(2, 10, 'Score: 0', { fontSize: '14px', fill: '#fff' });
+    this.textScore = this.add.text(2, 10, 'Score: 0', {
+      fontSize: '14px',
+      fill: '#fff',
+    });
     this.textScore.setScrollFactor(0, 0);
 
     this.sys.events.on('wake', this.wake, this);
