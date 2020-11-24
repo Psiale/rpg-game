@@ -22,7 +22,7 @@ export default class GameOverScene extends Phaser.Scene {
     });
 
     this.yourScoreis = this.add.text(0, 0, `${userName}'s score is: ${score} `, {
-        fontSize: "50px",
+        fontSize: "35px",
         fill: "#a52aec",  
     })
     this.zone = this.add.zone(
