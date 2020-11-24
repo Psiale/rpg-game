@@ -40,7 +40,7 @@ A RPG horror game where you have to fight against The Ancient Ones
 - Javascript
 - ESLint
 - StyleLint
-- CSS/SASS
+- Phaser 3 Framework
 - Stickler CI
 - Jest Framework
 
