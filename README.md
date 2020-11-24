@@ -16,6 +16,87 @@ A RPG horror game where you have to fight against The Ancient Ones
 
 3. Destroy them all and safe CuteLittleTown from the abyss of dispair, or face and find your death against them.
 
+## 🖼️🖌️ Design
+
+All of the sprites, backgrounds buttons and background music can be found on the bundle for racial justice and equiality  at [itch.io](https://itch.io/b/520/bundle-for-racial-justice-and-equality)
+
+Map designed by me ussing the [Tiled Software](https://www.mapeditor.org) and a lot of love 💜
+
+
+
+
+## Characters
+
+
+#### Hero
+---
+<h4 align="center">
+  Regular guy
+</h4> 
+  
+<p align="center">
+  <img width="32" height="32" src="./assets/character_retro_front.png">
+</p>
+
+
+#### Enemies
+
+---
+<h4 align="center">
+  Cutulhu
+</h4> 
+  
+<p align="center">
+  <img src="./assets/cutulhu.png">
+</p>
+
+---
+<h4 align="center">
+  Saint Axolotl
+</h4> 
+  
+<p align="center">
+  <img src="./assets/axolotl.png">
+
+</p>
+
+---
+<h4 align="center">
+  Bunny of Death
+</h4> 
+  
+<p align="center">
+  <img src="./assets/bunny.png">
+</p>
+
+---
+<h4 align="center">
+  Crazy Lizzard
+</h4> 
+  
+<p align="center">
+  <img src="./assets/lizzard.png">
+
+</p>
+
+---
+<h4 align="center">
+  Wiked Demon
+</h4> 
+  
+<p align="center">
+  <img src="./assets/demon.png">
+</p>
+
+---
+<h4 align="center">
+  Toad
+</h4> 
+  
+<p align="center">
+  <img src="./assets/toad.png">
+</p>
+
 ## 📽️ Previews
 
 <p align="center>
