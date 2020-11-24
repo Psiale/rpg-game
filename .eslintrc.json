@@ -14,7 +14,19 @@
       "no-shadow": "off",
       "no-param-reassign": "off",
       "eol-last": "off",
-      "arrow-parens": "off"
+      "arrow-parens": "off",
+      "no-undef": "off",
+      "no-underscore-dangle": "off",
+      "no-await-in-loop": "off",
+      "no-plusplus": "off",
+      "no-unused-expressions": "off",
+      "consistent-return": "off",
+      "max-classes-per-file": "off",
+      "no-use-before-define": "off",
+      "no-unused-vars": "off",
+      "func-names": "off",
+      "no-restricted-globals": "off",
+      "radix": "off"
     },
     "ignorePatterns": [
       "dist/",
