@@ -8,25 +8,40 @@ This project focuses on creating a RPG videogame with the Phaser 3 library
 
 A RPG horror game where you have to fight against The Ancient Ones
 
-## 🎮 Instructions 
 
-1. Walk trought the map to find the spots where Then Ancient Ones have left a trail of madness.
+## 🖼️🖌️ Game Design
+
+### The game Lore
+
+Our Hero (Regular Guy) enjoyed occultism and satanic rites, one day by mistake he invoked the ancients, who now spread their terror throughout LittleCuteTown; your heroic task is to defeat them all, before all its inhabitants fall into an abyss of despair. 
+
+
+### 🎮 How to play the game 
+
+1. Walk trought the map using the arrow keys of your keyboard to find the spots where The Ancient Ones have left a trail of madness.
 
 2. Fight them.
 
 3. Destroy them all and safe CuteLittleTown from the abyss of dispair, or face and find your death against them.
 
-## 🖼️🖌️ Design
+### Fighting 
+
+When you get switched to the Battle Field you will see your Regular guy's back on the bottom side of the screen. And The Ancient one in front of him 
+At the bottommost of the screen you will see a text button turning yellow when is your turn to attack, and turning white when is the enemies turn.
+When is your turn you have to press the **SpaceBar** to attack the enemy.
+After each character attacks you'll see a message displaying the name and the damage inflicted by the player who made the attack. 
+
+When the battle finishes you get switched back to CuteLittleTown, or to the Game Over screen, depending on the outcome of the battle.
+
+
+### Assets
 
 All of the sprites, backgrounds buttons and background music can be found on the bundle for racial justice and equiality  at [itch.io](https://itch.io/b/520/bundle-for-racial-justice-and-equality)
 
 Map designed by me ussing the [Tiled Software](https://www.mapeditor.org) and a lot of love 💜
 
 
-
-
-## Characters
-
+### Characters
 
 #### Hero
 ---
